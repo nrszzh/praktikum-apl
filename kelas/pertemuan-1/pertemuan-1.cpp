@@ -46,4 +46,26 @@ using namespace std;
 // int main(){
 // }
 
+// //studkas
+// int main() {
+//     int tahun;
+
+//     cout << "Masukkan Tahun: ";
+//     cin >> tahun;
+
+//     if (tahun % 400 == 0) {
+//         cout << tahun << " adalah Tahun Kabisat" << endl;
+//     } 
+//     else if (tahun % 100 == 0) {
+//         cout << tahun << " adalah Bukan Tahun Kabisat" << endl;
+//     } 
+//     else if (tahun % 4 == 0) {
+//         cout << tahun << " adalah Tahun Kabisat" << endl;
+//     } 
+//     else {
+//         cout << tahun << " adalah Bukan Tahun Kabisat" << endl;
+//     }
+
+//     return 0;
+// }
 
