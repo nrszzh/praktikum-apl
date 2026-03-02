@@ -33,7 +33,6 @@ int main() {
             }
         }
     }
-
     if (login == false) {
         system("cls");
         cout << "Percobaan 3 kali habis, program berhenti" << endl;
@@ -52,7 +51,7 @@ do {
         cout << "----------------------------" << endl;
         cout << "Pilihan Anda (1/2/3/4): ";
         cin >> pilihan;
-        
+
         if (pilihan == 4) break;
 
         if (pilihan >= 1 && pilihan <= 3) {
@@ -71,7 +70,7 @@ do {
                     break;
             }
         } else {
-            cout << "Pilihan tidak tersedia!" << endl;
+            cout << "Pilihan tidak tersedia" << endl;
         }
         cout << "<< (0) Kembali ";
         cin >> tombol;
