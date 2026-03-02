@@ -52,7 +52,7 @@ do {
         cout << "----------------------------" << endl;
         cout << "Pilihan Anda (1/2/3/4): ";
         cin >> pilihan;
-
+        
         if (pilihan == 4) break;
 
         if (pilihan >= 1 && pilihan <= 3) {
