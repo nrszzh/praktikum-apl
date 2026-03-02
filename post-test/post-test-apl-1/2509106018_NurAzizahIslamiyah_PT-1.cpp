@@ -27,7 +27,7 @@ int main() {
         } else {
             if (i < 3) {
                 cout << endl;
-                cout << "Login Gagal! coba lagi." << endl;
+                cout << "Login Gagal! coba lagi" << endl;
                 cout << ">> (0) Coba Lagi ";
                 cin >> tombol;
             }
@@ -52,7 +52,7 @@ do {
         cout << "----------------------------" << endl;
         cout << "Pilihan Anda (1/2/3/4): ";
         cin >> pilihan;
-        
+
         if (pilihan == 4) break;
 
         if (pilihan >= 1 && pilihan <= 3) {
