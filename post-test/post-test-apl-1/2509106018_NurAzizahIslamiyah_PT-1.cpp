@@ -75,7 +75,6 @@ do {
         cout << "<< (0) Kembali ";
         cin >> tombol;
     } while (pilihan != 4);
-
     system("cls");
     cout << "Program selesai :)" << endl;
     return 0;
