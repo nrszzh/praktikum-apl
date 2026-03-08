@@ -59,4 +59,40 @@ int main() {
         slot[i].data_tiket.masuk.zona_wkt = "WITA";
     }
 
+        while (true) {
+        cout << "\n=====================================" << endl;
+        cout << "|        SMART PARKING MALL         |" << endl;
+        cout << "=====================================" << endl;
+        cout << "|  1. Admin                         |" << endl;
+        cout << "|  2. Login Member                  |" << endl;
+        cout << "|  3. Registrasi Member             |" << endl;
+        cout << "|  4. Cek Slot                      |" << endl;
+        cout << "|  5. Keluar                        |" << endl;
+        cout << "=====================================" << endl;
+        cout << "Pilihan : ";
+        cin >> pil_awal;
+
+        if (pil_awal == 5) break;
+
+        if (pil_awal == 1) {
+            int coba_admin = 0;
+            bool login_admin = false;
+            string user_admin, pw_admin;
+
+            while(coba_admin < 3 && !login_admin) {
+                cout << "\n[LOGIN ADMIN]";
+                cout << "\nUsername : ";
+                cin >> user_admin;
+                cout << "Password : ";
+                cin >> pw_admin;
+
+                if (user_admin == "admin" && pw_admin == "123")
+                login_admin = true;
+                else {
+                    coba_admin++;
+                    cout << ">> Login Gagal, Coba lagi!" << endl; }
+            }
+        }
+    }
+
 }
