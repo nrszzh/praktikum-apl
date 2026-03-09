@@ -203,9 +203,24 @@ int main() {
                         cin.ignore();
                         cin.get();
                     }
-                }
+
+                    else if (pil_menu == 4) {
+                        cout << "Kosongkan Slot : "; 
+                        cin >> slot_parkir;
+                        int idx = slot_parkir - 1;
+                        slot[idx].terisi = false;
+                        slot[idx].plat = "-";
+                        slot[idx].id_pengguna = -1;
+                        cout << "Data Parkir Dihapus";
+                        cin.ignore();
+                        cin.get();
+                    }
+                } while (pil_menu != 5);
             }
         }
+
+
+
     }
 
 }
