@@ -1,226 +1,101 @@
 #include <iostream>
 #include <string>
-
 using namespace std;
 
-#define MAX_SLOT 10
-#define MAX_USER 5
+int tingkat_parkir = 2; 
+int slot_pertingkat = 20;
+int member = 10;
 
-struct waktu {
-    int jam;
-    int menit;
-    string zona_wkt;
-};
-
-struct tiket {
-    string kode_parkir;
-    string jenis_kendaraan;
-    waktu masuk;
-};
-
-struct member {
-    string nama;
-    string password;
-    float saldo;
-    float riwayat = 0;
-};
-
-struct parkir {
+struct data_parkir {
     string plat = "-";
-    int id_pengguna = -1; 
+    int id_member = -1; 
     bool terisi = false;
-    bool reserved = false;
-    bool maintenance = false;
-    tiket data_tiket;
+    bool booking = false;
+    int jam_masuk = 0;
+};
+
+struct data_member {
+    string nama;
+    string pw;
+    int saldo = 0;
+    bool aktif = false;
 };
 
 int main() {
-    member regis_member[MAX_USER];
-    parkir slot[MAX_SLOT];
-    
+    data_parkir denah_parkir[tingkat_parkir][slot_pertingkat];
+    data_member list_member[member];
     int jml_member = 0;
-    int pil_awal;
+
+    //login member tanpa regis
+    list_member[0] = {"Nur", "018", 100000, true};
+    jml_member = 1;
+
+    int pil_utama;
     int pil_menu;
-    int update;
-    int slot_parkir;
-    int jam_keluar;
-    int menit_keluar;
-    int durasi;
-    int biaya;
+    string usn_login;
+    string pw_login;
 
-    //member yg sudah regis 
-    regis_member[jml_member].nama = "Nur";
-    regis_member[jml_member].password = "018";
-    regis_member[jml_member].saldo = 100000;
-    jml_member++;
+    while (true) {
+        system("cls");
+        cout << "=================================================" << endl;
+        cout << "|             SMART PARKING MALL                |" << endl;
+        cout << "=================================================" << endl;
+        cout << "| 1. | Login                                    |" << endl;
+        cout << "| 2. | Registrasi Member                        |" << endl;
+        cout << "| 3. | Lihat Slot Parkir                        |" << endl;
+        cout << "| 0. | Keluar                                   |" << endl;
+        cout << "=================================================" << endl;
+        cout << "Pilihan Anda: ";
+        cin >> pil_utama;
 
-    for(int i = 0; i < MAX_SLOT; i++) {
-        slot[i].data_tiket.kode_parkir = "A";
-        slot[i].data_tiket.masuk.zona_wkt = "WITA";
-    }
-
-        while (true) {
-        cout << "\n=====================================" << endl;
-        cout << "|        SMART PARKING MALL         |" << endl;
-        cout << "=====================================" << endl;
-        cout << "|  1. Admin                         |" << endl;
-        cout << "|  2. Login Member                  |" << endl;
-        cout << "|  3. Registrasi Member             |" << endl;
-        cout << "|  4. Cek Slot                      |" << endl;
-        cout << "|  5. Keluar                        |" << endl;
-        cout << "=====================================" << endl;
-        cout << "Pilihan : ";
-        cin >> pil_awal;
-
-        if (pil_awal == 5) break;
-
-        if (pil_awal == 1) {
-            int coba_admin = 0;
-            bool login_admin = false;
-            string user_admin, pw_admin;
-
-            while(coba_admin < 3 && !login_admin) {
-                cout << "\n[LOGIN ADMIN]";
-                cout << "\nUsername : ";
-                cin >> user_admin;
-                cout << "Password : ";
-                cin >> pw_admin;
-
-                if (user_admin == "admin" && pw_admin == "123")
-                login_admin = true;
-                else {
-                    coba_admin++;
-                    cout << ">> Login Gagal, Coba lagi!" << endl; }
-            }
-
-                        if (login_admin) {
-                do {
-                    cout << "\n=====================================" << endl;
-                    cout << "|            MENU  ADMIN            |" << endl;
-                    cout << "=====================================" << endl;
-                    cout << "|  1. Input Data Parkir             |" << endl;
-                    cout << "|  2. Update Data                   |" << endl;
-                    cout << "|  3. Lihat Slot Parkir             |" << endl;
-                    cout << "|  4. Hapus Data Parkir             |" << endl;
-                    cout << "|  5. Kembali                       |" << endl;
-                    cout << "=====================================" << endl;
-                    cout << "Pilihan : ";
-                    cin >> pil_menu;
-
-                    if (pil_menu == 1) {
-                        cout << "Nomor Slot (1-10)   : ";
-                        cin >> slot_parkir;
-                        int idx = slot_parkir - 1;
-                        if (!slot[idx].terisi && !slot[idx].maintenance) {
-                            cout << "Plat                : ";
-                            cin.ignore();
-                            getline(cin, slot[idx].plat);
-
-                            cout << "Jenis Kendaraan     : ";
-                            getline(cin, slot[idx].data_tiket.jenis_kendaraan);
-
-                            cout << "Jam                 : ";
-                            cin >> slot[idx].data_tiket.masuk.jam;
-
-                            cout << "Menit               : ";
-                            cin >> slot[idx].data_tiket.masuk.menit;
-                            slot[idx].terisi = true;
-                            slot[idx].id_pengguna = -1;
-
-                            cout << "Data Parkir Berhasil Diinput!";
-                        } else cout << "Gagal Menginput Data";
-                        cin.ignore();
-                        cin.get();
-                    }
-
-                    else if (pil_menu == 2) {
-                        cout << "---------------------------" << endl;
-                        cout << "|     UPDATE DATA         |" << endl;
-                        cout << "---------------------------" << endl;
-                        cout << "| 1. Edit Data Kendaraan  |" << endl;
-                        cout << "| 2. Update Status Parkir |" << endl;
-                        cout << "---------------------------" << endl;
-                        cout << "Pilihan : ";
-                        cin >> update;
-
-                        cout << "Nomor Slot (1-10) : ";
-                        cin >> slot_parkir;
-                        int idx = slot_parkir - 1;
-
-                        if (update == 1) {
-                            if (slot[idx].terisi) {
-                                cout << "Plat Baru         : ";
-                                cin.ignore();
-                                getline(cin, slot[idx].plat);
-                                cout << "Jenis Baru      : ";
-                                getline(cin, slot[idx].data_tiket.jenis_kendaraan);
-                                cout << "Data Berhasil Diperbarui!" << endl;
-                            } else {
-                                cout << "Slot kosong, tidak ada data untuk diedit." << endl;
-                            }
-                        } 
-                        else if (update == 2) {
-                            if (!slot[idx].terisi) {
-                                slot[idx].maintenance = !slot[idx].maintenance;
-                                cout << "Status Maintenance Slot " << slot_parkir << " Berhasil Diubah!" << endl;
-                            } else {
-                                cout << "Tidak bisa maintenance saat slot masih terisi kendaraan." << endl;
-                            }
-                        }
-                        cin.ignore();
-                        cin.get();
-                    }
-
-                    else if (pil_menu == 3) {
-                        cout << "\n[ LAPORAN DATA PARKIR ]" << endl;
-                        cout << "------------------------------------------------------------" << endl;
-                        cout << "| ID  | PLAT           | STATUS          | PEMILIK" << endl;
-                        cout << "------------------------------------------------------------" << endl;
-                        
-                        for(int i = 0; i < MAX_SLOT; i++) {
-                            cout << "| A" << (i + 1);
-                            if (i < 9) cout << "  | "; 
-                            else cout << " | "; 
-
-                            if (slot[i].maintenance) {
-                                cout << "-              | PERBAIKAN       | -";
-                            } 
-                            else if (slot[i].terisi) {
-                                cout << slot[i].plat;
-                                cout << "      | TERISI          | ";
-
-                                if (slot[i].id_pengguna != -1) 
-                                    cout << regis_member[slot[i].id_pengguna].nama;
-                                else 
-                                    cout << "Umum";
-                            } 
-                            else {
-                                cout << "-              | KOSONG          | -";
-                            }
-                            cout << endl;
-                        }
-                        cout << "------------------------------------------------------------" << endl;
-                        cin.ignore();
-                        cin.get();
-                    }
-
-                    else if (pil_menu == 4) {
-                        cout << "Kosongkan Slot : "; 
-                        cin >> slot_parkir;
-                        int idx = slot_parkir - 1;
-                        slot[idx].terisi = false;
-                        slot[idx].plat = "-";
-                        slot[idx].id_pengguna = -1;
-                        cout << "Data Parkir Dihapus";
-                        cin.ignore();
-                        cin.get();
-                    }
-                } while (pil_menu != 5);
-            }
+        if (pil_utama == 0) {
+            system("cls");
+            cout << "Program Berhenti :)" << endl;
+            break;
         }
 
+        if (pil_utama == 1) {
+            int percobaan = 0;
+            int id = -1;
+            bool admin = false;
 
+            while (percobaan < 3) {
+                system("cls");
+                cout << "=== FORM LOGIN ===" << endl;
+                cout << "Username : ";
+                if (percobaan == 0) cin.ignore(); 
+                getline(cin, usn_login);
+                cout << "Password : ";
+                cin >> pw_login;
 
+                if (usn_login == "admin" && pw_login == "123") {
+                    admin = true;
+                    break;
+                }
+
+                for (int i = 0; i < jml_member; i++) {
+                    if (list_member[i].nama == usn_login && list_member[i].pw == pw_login) {
+                        id = i;
+                        break;
+                    }
+                }
+
+                if (id != -1) break; 
+
+                percobaan++;
+                if (percobaan < 3) {
+                    cout << "\n >> Gagal Login, Coba Lagi";
+                    cin.ignore();
+                    cin.get(); 
+                }
+            }
+
+            if (!admin && id == -1) {
+                system("cls");
+                cout << "Gagal Login, Percobaan habis!" << endl;
+                cout << "\n<(0) Kembali: ";
+                cin >> pil_menu;
+            } 
+        }
     }
-
 }
