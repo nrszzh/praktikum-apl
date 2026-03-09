@@ -93,7 +93,7 @@ int main() {
                     cout << ">> Login Gagal, Coba lagi!" << endl; }
             }
 
-            if (login_admin) {
+                        if (login_admin) {
                 do {
                     cout << "\n=====================================" << endl;
                     cout << "|            MENU  ADMIN            |" << endl;
@@ -129,6 +129,77 @@ int main() {
 
                             cout << "Data Parkir Berhasil Diinput!";
                         } else cout << "Gagal Menginput Data";
+                        cin.ignore();
+                        cin.get();
+                    }
+
+                    else if (pil_menu == 2) {
+                        cout << "---------------------------" << endl;
+                        cout << "|     UPDATE DATA         |" << endl;
+                        cout << "---------------------------" << endl;
+                        cout << "| 1. Edit Data Kendaraan  |" << endl;
+                        cout << "| 2. Update Status Parkir |" << endl;
+                        cout << "---------------------------" << endl;
+                        cout << "Pilihan : ";
+                        cin >> update;
+
+                        cout << "Nomor Slot (1-10) : ";
+                        cin >> slot_parkir;
+                        int idx = slot_parkir - 1;
+
+                        if (update == 1) {
+                            if (slot[idx].terisi) {
+                                cout << "Plat Baru         : ";
+                                cin.ignore();
+                                getline(cin, slot[idx].plat);
+                                cout << "Jenis Baru      : ";
+                                getline(cin, slot[idx].data_tiket.jenis_kendaraan);
+                                cout << "Data Berhasil Diperbarui!" << endl;
+                            } else {
+                                cout << "Slot kosong, tidak ada data untuk diedit." << endl;
+                            }
+                        } 
+                        else if (update == 2) {
+                            if (!slot[idx].terisi) {
+                                slot[idx].maintenance = !slot[idx].maintenance;
+                                cout << "Status Maintenance Slot " << slot_parkir << " Berhasil Diubah!" << endl;
+                            } else {
+                                cout << "Tidak bisa maintenance saat slot masih terisi kendaraan." << endl;
+                            }
+                        }
+                        cin.ignore();
+                        cin.get();
+                    }
+
+                    else if (pil_menu == 3) {
+                        cout << "\n[ LAPORAN DATA PARKIR ]" << endl;
+                        cout << "------------------------------------------------------------" << endl;
+                        cout << "| ID  | PLAT           | STATUS          | PEMILIK" << endl;
+                        cout << "------------------------------------------------------------" << endl;
+                        
+                        for(int i = 0; i < MAX_SLOT; i++) {
+                            cout << "| A" << (i + 1);
+                            if (i < 9) cout << "  | "; 
+                            else cout << " | "; 
+
+                            if (slot[i].maintenance) {
+                                cout << "-              | PERBAIKAN       | -";
+                            } 
+                            else if (slot[i].terisi) {
+                                cout << slot[i].plat;
+                                cout << "      | TERISI          | ";
+
+                                if (slot[i].id_pengguna != -1) 
+                                    cout << regis_member[slot[i].id_pengguna].nama;
+                                else 
+                                    cout << "Umum";
+                            } 
+                            else {
+                                cout << "-              | KOSONG          | -";
+                            }
+                            cout << endl;
+                        }
+                        cout << "------------------------------------------------------------" << endl;
                         cin.ignore();
                         cin.get();
                     }
