@@ -92,6 +92,48 @@ int main() {
                     coba_admin++;
                     cout << ">> Login Gagal, Coba lagi!" << endl; }
             }
+
+            if (login_admin) {
+                do {
+                    cout << "\n=====================================" << endl;
+                    cout << "|            MENU  ADMIN            |" << endl;
+                    cout << "=====================================" << endl;
+                    cout << "|  1. Input Data Parkir             |" << endl;
+                    cout << "|  2. Update Data                   |" << endl;
+                    cout << "|  3. Lihat Slot Parkir             |" << endl;
+                    cout << "|  4. Hapus Data Parkir             |" << endl;
+                    cout << "|  5. Kembali                       |" << endl;
+                    cout << "=====================================" << endl;
+                    cout << "Pilihan : ";
+                    cin >> pil_menu;
+
+                    if (pil_menu == 1) {
+                        cout << "Nomor Slot (1-10)   : ";
+                        cin >> slot_parkir;
+                        int idx = slot_parkir - 1;
+                        if (!slot[idx].terisi && !slot[idx].maintenance) {
+                            cout << "Plat                : ";
+                            cin.ignore();
+                            getline(cin, slot[idx].plat);
+
+                            cout << "Jenis Kendaraan     : ";
+                            getline(cin, slot[idx].data_tiket.jenis_kendaraan);
+
+                            cout << "Jam                 : ";
+                            cin >> slot[idx].data_tiket.masuk.jam;
+
+                            cout << "Menit               : ";
+                            cin >> slot[idx].data_tiket.masuk.menit;
+                            slot[idx].terisi = true;
+                            slot[idx].id_pengguna = -1;
+
+                            cout << "Data Parkir Berhasil Diinput!";
+                        } else cout << "Gagal Menginput Data";
+                        cin.ignore();
+                        cin.get();
+                    }
+                }
+            }
         }
     }
 
