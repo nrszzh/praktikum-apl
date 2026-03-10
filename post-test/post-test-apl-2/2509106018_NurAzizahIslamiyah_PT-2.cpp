@@ -116,6 +116,7 @@ int main() {
                     system("cls");
                     int jenis;
                     int slot;
+                    cout << "=== INPUT DATA PARKIR ===" << endl;
                     cout << "Jenis Kendaraan" << endl;
                     cout << "1.Motor" << endl;
                     cout << "2.Mobil" << endl;
@@ -298,6 +299,7 @@ int main() {
                         system("cls");
                         int jenis;
                         int slot;
+                        cout << "=== BOOKING SLOT PARKIR ===" << endl;
                         cout << "Jenis Kendaraan " << endl;
                         cout << "1.Motor" << endl;
                         cout << "2.Mobil" << endl;
@@ -324,6 +326,7 @@ int main() {
                                     ketemu = true;
                                     int jam_keluar;
                                     int biaya;
+                                    cout << "=== BAYAR PARKIR ===" << endl;
                                     cout << "Lokasi: LT " << i+1 << " Slot " << j+1 << endl;
                                     cout << "Jam Keluar: ";
                                     cin >> jam_keluar;
@@ -341,12 +344,15 @@ int main() {
                             }
                         }
                         if(!ketemu) cout << "Data Tidak Ditemukan.";
-                        cout << "\n<(0) Kembali "; cin >> pil_menu; pil_menu = 2;
+                        cout << "\n<(0) Kembali ";
+                        cin >> pil_menu;
+                        pil_menu = 2;
                     }
 
                     else if (pil_menu == 3) {
                         system("cls");
                         int topup;
+                        cout << "=== TOP UP SALDO ===" << endl;
                         cout << "Nominal Top Up : ";
                         cin >> topup;
                         list_member[id].saldo += topup;
@@ -364,10 +370,13 @@ int main() {
                             for (int j = 0; j < slot_pertingkat; j++) {
                                 string status = (denah_parkir[i][j].id_member == -2) ? "REPAIR" : (denah_parkir[i][j].terisi ? "TERISI" : (denah_parkir[i][j].booking ? "BOOKED" : "KOSONG"));
                                 cout << "[" << status << "] ";
-                                if ((j + 1) % 10 == 0) cout << endl;
+                                if ((j + 1) % 10 == 0)
+                                cout << endl;
                             }
                         }
-                        cout << "\n<(0) Kembali "; cin >> pil_menu; pil_menu = 4;
+                        cout << "\n<(0) Kembali ";
+                        cin >> pil_menu;
+                        pil_menu = 4;
 
                     } else if (pil_menu != 0) {
                         system("cls");
