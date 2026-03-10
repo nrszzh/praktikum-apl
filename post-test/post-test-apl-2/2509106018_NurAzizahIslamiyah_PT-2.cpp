@@ -277,6 +277,107 @@ int main() {
                 }
                 } while (pil_menu != 0);
             }
+
+                        else {
+                do {
+                    system("cls");
+                    cout << "Halo, " << list_member[id].nama << " | ID: " << id << " | Saldo: Rp" << list_member[id].saldo << endl;
+                    cout << "=================================================" << endl;
+                    cout << "|                 MENU MEMBER                   |" << endl;
+                    cout << "=================================================" << endl;
+                    cout << "| 1. | Booking Slot                             |" << endl;
+                    cout << "| 2. | Bayar Parkir                             |" << endl;
+                    cout << "| 3. | Top Up Saldo                             |" << endl;
+                    cout << "| 4. | Lihat Slot                               |" << endl;
+                    cout << "| 0. | Logout                                   |" << endl;
+                    cout << "=================================================" << endl;
+                    cout << "Pilihan: ";
+                    cin >> pil_menu;
+
+                    if (pil_menu == 1) {
+                        system("cls");
+                        int jenis;
+                        int slot;
+                        cout << "Jenis Kendaraan " << endl;
+                        cout << "1.Motor" << endl;
+                        cout << "2.Mobil" << endl;
+                        cout << "Pilihan : ";
+                        cin >> jenis;
+                        cout << "No Slot (1-20) : ";
+                        cin >> slot;
+                        if (!denah_parkir[jenis-1][slot-1].terisi && !denah_parkir[jenis-1][slot-1].booking) {
+                            denah_parkir[jenis-1][slot-1].booking = true;
+                            denah_parkir[jenis-1][slot-1].id_member = id;
+                            cout << "Booking Berhasil!";
+                        } else cout << "Slot Tidak Tersedia!";
+                        cout << "\n<(0) Kembali ";
+                        cin >> pil_menu; 
+                        pil_menu = 1;
+                    }
+
+                    else if (pil_menu == 2) {
+                        system("cls");
+                        bool ketemu = false;
+                        for(int i=0; i<tingkat_parkir; i++) {
+                            for(int j=0; j<slot_pertingkat; j++) {
+                                if(denah_parkir[i][j].id_member == id && denah_parkir[i][j].terisi) {
+                                    ketemu = true;
+                                    int jam_keluar;
+                                    int biaya;
+                                    cout << "Lokasi: LT " << i+1 << " Slot " << j+1 << endl;
+                                    cout << "Jam Keluar: ";
+                                    cin >> jam_keluar;
+                                    biaya = (jam_keluar - denah_parkir[i][j].jam_masuk) * (i == 0 ? 2000 : 5000);
+                                    if (biaya <= 0) biaya = (i == 0 ? 2000 : 5000);
+                                    if(list_member[id].saldo >= biaya) {
+                                        list_member[id].saldo -= biaya;
+                                        denah_parkir[i][j].terisi = false;
+                                        denah_parkir[i][j].id_member = -1;
+                                        denah_parkir[i][j].plat = "-";
+                                        cout << "Bayar Berhasil! Sisa Saldo: Rp" << list_member[id].saldo;
+                                    } else 
+                                    cout << "Saldo Kurang!";
+                                }
+                            }
+                        }
+                        if(!ketemu) cout << "Data Tidak Ditemukan.";
+                        cout << "\n<(0) Kembali "; cin >> pil_menu; pil_menu = 2;
+                    }
+
+                    else if (pil_menu == 3) {
+                        system("cls");
+                        int topup;
+                        cout << "Nominal Top Up : ";
+                        cin >> topup;
+                        list_member[id].saldo += topup;
+                        cout << "Berhasil Top Up" << endl;
+                        cout << "<(0) Kembali ";
+                        cin >> pil_menu;
+                        pil_menu = 3;
+                    }
+
+                    else if (pil_menu == 4) {
+                        system("cls");
+                        cout << "=== CEK SLOT PARKIR ===" << endl;
+                        for (int i = 0; i < tingkat_parkir; i++) {
+                            cout << "\n" << (i == 0 ? "L1 (MOTOR)" : "L2 (MOBIL)") << endl;
+                            for (int j = 0; j < slot_pertingkat; j++) {
+                                string status = (denah_parkir[i][j].id_member == -2) ? "REPAIR" : (denah_parkir[i][j].terisi ? "TERISI" : (denah_parkir[i][j].booking ? "BOOKED" : "KOSONG"));
+                                cout << "[" << status << "] ";
+                                if ((j + 1) % 10 == 0) cout << endl;
+                            }
+                        }
+                        cout << "\n<(0) Kembali "; cin >> pil_menu; pil_menu = 4;
+
+                    } else if (pil_menu != 0) {
+                        system("cls");
+                        cout << "Pilihan tidak valid!" << endl;
+                        cout << "\n<(0) Kembali ";
+                        cin >> pil_menu;
+                        pil_menu = -1;
+                    }
+                } while (pil_menu != 0);
+            }
         }
     }
 }
