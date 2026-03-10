@@ -379,5 +379,45 @@ int main() {
                 } while (pil_menu != 0);
             }
         }
+
+                else if (pil_utama == 2) {
+            system("cls");
+            cout << "=== FORM REGISTRASI MEMBER ===" << endl;
+            if (jml_member < member) {
+                cout << "Nama     : ";
+                cin.ignore();
+                getline(cin, list_member[jml_member].nama); 
+                cout << "Password : ";
+                cin >> list_member[jml_member].pw;
+                list_member[jml_member].saldo = 0;
+                list_member[jml_member].aktif = true;
+                jml_member++;
+                cout << "\nRegistrasi Berhasil! ID Anda untuk parkir adalah: " << jml_member - 1 << endl;
+            } else cout << "Kapasitas Member Penuh!" << endl;
+            cout << "\n<(0) Kembali ";
+            cin >> pil_menu;
+        }
+
+        else if (pil_utama == 3) {
+            system("cls");
+            cout << "=== SLOT PARKIR MALL ===" << endl;
+            for (int i = 0; i < tingkat_parkir; i++) {
+                cout << "\n" << (i == 0 ? "L1 (MOTOR)" : "L2 (MOBIL)") << endl;
+                for (int j = 0; j < slot_pertingkat; j++) {
+                    string status = (denah_parkir[i][j].id_member == -2) ? "REPAIR" : (denah_parkir[i][j].terisi ? "TERISI" : (denah_parkir[i][j].booking ? "BOOKED" : "KOSONG"));
+                    cout << "[" << status << "] ";
+                    if ((j + 1) % 10 == 0)
+                    cout << endl;
+                }
+            }
+            cout << "\n<(0) Kembali ";
+            cin >> pil_menu;
+        } else {
+            system("cls");
+            cout << "Pilihan tidak valid!" << endl;
+            cout << "\n<(0) Kembali ";
+            cin >> pil_menu;
+        }
     }
+    return 0;
 }
