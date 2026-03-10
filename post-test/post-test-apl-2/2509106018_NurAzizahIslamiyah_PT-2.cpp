@@ -279,7 +279,7 @@ int main() {
                 } while (pil_menu != 0);
             }
 
-                        else {
+                else {
                 do {
                     system("cls");
                     cout << "Halo, " << list_member[id].nama << " | ID: " << id << " | Saldo: Rp" << list_member[id].saldo << endl;
@@ -430,3 +430,4 @@ int main() {
     }
     return 0;
 }
+
