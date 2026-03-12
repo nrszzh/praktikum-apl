@@ -83,3 +83,67 @@ using namespace std;
 //     return 0;
 // }
 
+// Pass by Reference (&)
+// void tukarsenjata(string &senjata) {
+//     senjata = "Sarung Wadimor"; // Langsung ganti isi variabel aslinya
+// }
+
+// int main() {
+//     string senjatahero = "Kayu Busuk";
+
+//     cout << "Senjata awal: " << senjatahero << endl;
+
+//     tukarsenjata(senjatahero); // Panggil prosedur
+
+//     // Variable dalam main akan ikut terubah
+//     cout << "Senjata sekarang: " << senjatahero << endl;
+
+//     return 0;
+// }
+
+
+//Default Value
+// 'kadarGula' punya nilai default "Normal"
+// Parameter default wajib ditaruh paling kanan!
+// void pesankopi(string menu, string kadargula = "Normal") {
+//     cout << "Pesanan: " << menu << " | Gula: " << kadargula << endl;
+// }
+
+// int main() {
+//     // Kasus 1: pengguna mengirim 1 parameter
+//     pesankopi("Kopi Susu"); // ga ngisi gula (jdinya nnti otomatis normal)
+
+//     // Kasus 2: pengguna mengirim 2 parameter dan menggantikan
+//     // parameter default dari prosedur
+//     pesankopi("Americano", "Less Sugar");
+
+//     return 0;
+// }
+
+
+//variabel global (diakses seluruh)
+// variabel lokal (diakses dalam fungsi/prosedur itu aja)
+//shadowing variabel (nimpa, prioritasin lokal)
+
+
+//function overloading: nama nya sama tapi tipe dan parameter nya beda
+// Fungsi menjumlahkan bilangan bulat
+// int tambah(int a, int b) {
+//     return a + b;
+// }
+
+// // Fungsi 2 menjumlahkan bilangan desimal
+// double tambah(double a, double b) {
+//     return a + b;
+// }
+
+// int main() {
+//     cout << "Hasil Int: " << tambah(5, 6) << endl;
+//     cout << "Hasil Double: " << tambah(5.5, 6.6) << endl;
+//     return 0;
+// }
+
+
+//return: balikin nilai (mtk), hentiin program
+//rekursif: if, boros, lambat
+//iteratif: loop, hemat, cepat
