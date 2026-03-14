@@ -115,3 +115,25 @@ void read_admin(data_parkir denah[2][20], data_member list[]) {
     }
     kembali();
 }
+
+void read_admin(data_parkir denah[2][20], data_member list[]) {
+    header_pjg("LIHAT DATA PARKIR");
+    for (int i = 0; i < tingkat; i++) {
+        cout << "\nLANTAI " << i + 1 << endl;
+        cout << "+------+------------+---------------+------------------------+" << endl;
+        cout << "| SLOT |   STATUS   |     PLAT      |        PEMILIK         |" << endl;
+        cout << "+------+------------+---------------+------------------------+" << endl;
+        bool ada = false;
+        for (int j = 0; j < slot; j++) {
+            if (denah[i][j].terisi || denah[i][j].booking) {
+                string status = (denah[i][j].id_member == -2) ? "PERBAIKAN" : (denah[i][j].terisi ? "TERISI" : "BOOKED");
+                string pm = (denah[i][j].id_member >= 0) ? list[denah[i][j].id_member].nama : (denah[i][j].id_member == -2 ? "-" : "Umum");
+                cout << "| " << left << setw(4) << j + 1 << "| " << setw(10) << status << "| " << setw(13) << denah[i][j].plat << "| " << setw(22) << pm << " |" << endl;
+                ada = true;
+            }
+        }
+        if (!ada) cout << "|                ( Tidak ada data kendaraan )                |" << endl;
+        cout << "+------+------------+---------------+------------------------+" << endl;
+    }
+    kembali();
+}
