@@ -86,7 +86,8 @@ void read_user(data_parkir denah[2][20]) {
         for (int j = 0; j < slot; j++) {
             string status = (denah[i][j].id_member == -2) ? " [R] " : (denah[i][j].terisi ? " [X] " : (denah[i][j].booking ? " [B] " : " [ ] "));
             cout << status;
-            if ((j + 1) % 10 == 0) cout << endl;
+            if ((j + 1) % 10 == 0)
+            cout << endl;
         }
         cout << " ------------------------------------------------" << endl;
     }
