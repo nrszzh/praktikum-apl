@@ -153,4 +153,28 @@ void menu_admin(data_parkir denah[2][20], data_member list[]) {
         cout << "Pilihan: ";
         cin >> pilihan;
 
-        
+        if (pilihan == 1) {
+            header_pendek("INPUT DATA PARKIR");
+            int lantai;
+            int slot_parkir;
+            cout << "Lantai               : "; 
+            cin >> lantai;
+            cout << "Slot                 : "; 
+            cin >> slot_parkir;
+            data_parkir &idx = denah[lantai-1][slot_parkir-1];
+            if (idx.booking) {
+                cout << ">> Booking oleh: " << list[idx.id_member].nama << endl;
+                idx.booking = false;
+            }
+            cout << "Plat                    : "; 
+            cin.ignore();
+            getline(cin, idx.plat);
+            cout << "Jam                     : "; 
+            cin >> idx.jam_masuk;
+            if (idx.id_member < 0) {
+                cout << "ID Member (Umum-1)  : ";
+                cin >> idx.id_member; 
+            }
+            idx.terisi = true; 
+            tampil_output("Data Berhasil Diinput"); 
+            kembali();
