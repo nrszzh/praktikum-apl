@@ -178,3 +178,31 @@ void menu_admin(data_parkir denah[2][20], data_member list[]) {
             idx.terisi = true; 
             tampil_output("Data Berhasil Diinput"); 
             kembali();
+
+        } else if (pilihan == 3) {
+            header_pendek("UPDATE SLOT PARKIR");
+            int pil_update;
+            cout << "| 1. | Ubah Data Parkir                      |" << endl;
+            cout << "| 2. | Ubah Status (Maintenance)             |" << endl;
+            cout << "==============================================" << endl;
+            cout << "Pilihan: "; 
+            cin >> pil_update;
+            int lantai;
+            int slot_parkir;
+            cout << "Lantai   : "; 
+            cin >> lantai;
+            cout << "Slot     : "; 
+            cin >> slot_parkir;
+            data_parkir &idx = denah[lantai-1][slot_parkir-1];
+            if (pil_update == 1) {
+                if (idx.terisi) {
+                    cout << "Plat Baru: "; 
+                    cin.ignore();
+                    getline(cin, idx.plat);
+                    cout << "Jam Baru : ";
+                    cin >> idx.jam_masuk;
+                    tampil_output("Data Diperbaharui");
+                } else
+                tampil_output("Slot Kosong");
+
+                
