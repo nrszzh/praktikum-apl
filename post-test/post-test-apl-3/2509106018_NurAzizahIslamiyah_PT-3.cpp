@@ -139,3 +139,18 @@ void read_admin(data_parkir denah[2][20], data_member list[]) {
     }
     kembali();
 }
+
+void menu_admin(data_parkir denah[2][20], data_member list[]) {
+    int pilihan;
+    do {
+        header_pjg("MENU ADMIN");
+        cout << "| 1. | Input Data Parkir                                     |" << endl;
+        cout << "| 2. | Lihat Slot Parkir                                     |" << endl;
+        cout << "| 3. | Update Slot Parkir                                    |" << endl;
+        cout << "| 4. | Kosongkan Slot Parkir                                 |" << endl;
+        cout << "| 0. | Logout                                                |" << endl;
+        cout << "==============================================================" << endl;
+        cout << "Pilihan: ";
+        cin >> pilihan;
+
+        
