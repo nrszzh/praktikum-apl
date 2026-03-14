@@ -179,6 +179,9 @@ void menu_admin(data_parkir denah[2][20], data_member list[]) {
             tampil_output("Data Berhasil Diinput"); 
             kembali();
 
+        } else if (pilihan == 2){
+            read_admin(denah, list);
+
         } else if (pilihan == 3) {
             header_pendek("UPDATE SLOT PARKIR");
             int pil_update;
