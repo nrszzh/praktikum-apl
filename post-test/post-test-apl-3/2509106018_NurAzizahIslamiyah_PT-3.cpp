@@ -1,8 +1,10 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
-#include <conio.h>
+#include <conio.h> 
 using namespace std;
+
+//Nur 018
 
 int tingkat = 2;
 int slot = 20;
