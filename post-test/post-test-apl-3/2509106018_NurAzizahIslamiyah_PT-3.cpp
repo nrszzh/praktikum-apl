@@ -205,4 +205,19 @@ void menu_admin(data_parkir denah[2][20], data_member list[]) {
                 } else
                 tampil_output("Slot Kosong");
 
-                
+            } else {
+                int status;
+                cout << "1. Set Maintenance "<< endl;
+                cout << "2. Set Normal      " << endl;
+                cout << "Pilihan : ";
+                cin >> status;
+                if (status == 1) { idx.id_member = -2;
+                    idx.terisi = true; idx.plat = "PERBAIKAN";
+                }
+                else { idx.id_member = -1;
+                    idx.terisi = false;
+                    idx.plat = "-";
+                }
+                tampil_output("Status Berhasil Diubah");
+            }
+            kembali();
