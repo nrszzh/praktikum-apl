@@ -239,7 +239,32 @@ void menu_member(int id, data_member list[], data_parkir denah[2][20]) {
                 denah[lantai-1][slot_parkir-1].booking = true;
                 denah[lantai-1][slot_parkir-1].id_member = id;
                 tampil_output("Berhasil Booking", slot_parkir);
-            } else tampil_output("Slot Tidak Tersedia");
+            } else 
+            tampil_output("Slot Tidak Tersedia");
             kembali();
-        }
-    }
+
+        } else if (pilihan == 2) {
+            header_pendek("BAYAR PARKIR");
+            bool ketemu = false;
+            for(int i=0; i<tingkat; i++) {
+                for(int j=0; j<slot; j++) {
+                    if(denah[i][j].id_member == id && denah[i][j].terisi) {
+                        int jam_kel;
+                        cout << "Lokasi    : LT " << i+1 << " Slot " << j+1 << endl;
+                        cout << "Jam Keluar: ";
+                        cin >> jam_kel;
+                        int biaya = hitung_biaya(denah[i][j].jam_masuk, jam_kel, i);
+                        if(list[id].saldo >= biaya) {
+                            list[id].saldo -= biaya;
+                            denah[i][j].terisi = false;
+                            denah[i][j].id_member = -1;
+                            denah[i][j].plat = "-";
+                            tampil_output("Bayar Berhasil, Sisa Saldo", list[id].saldo);
+                        } else tampil_output("Saldo Kurang");
+                        ketemu = true; break;
+                    }
+                }
+            }
+            if(!ketemu) tampil_output("Tidak Ada Kendaraan Terparkir");
+            kembali();
+
