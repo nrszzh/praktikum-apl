@@ -226,5 +226,20 @@ void menu_member(int id, data_member list[], data_parkir denah[2][20]) {
         cout << "==============================================================" << endl;
         cout << "Pilihan: ";
         cin >> pilihan;
+
+        if (pilihan == 1) {
+            header_pendek("BOOKING SLOT");
+            int lantai;
+            int slot_parkir;
+            cout << "Lantai (1.Motor/2.Mobil) : "; 
+            cin >> lantai;
+            cout << "Nomor Slot (1-20)        : "; 
+            cin >> slot_parkir;
+            if (!denah[lantai-1][slot_parkir-1].terisi && !denah[lantai-1][slot_parkir-1].booking) {
+                denah[lantai-1][slot_parkir-1].booking = true;
+                denah[lantai-1][slot_parkir-1].id_member = id;
+                tampil_output("Berhasil Booking", slot_parkir);
+            } else tampil_output("Slot Tidak Tersedia");
+            kembali();
+        }
     }
-}
