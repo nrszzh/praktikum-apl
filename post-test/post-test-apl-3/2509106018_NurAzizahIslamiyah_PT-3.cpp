@@ -268,3 +268,7 @@ void menu_member(int id, data_member list[], data_parkir denah[2][20]) {
             if(!ketemu) tampil_output("Tidak Ada Kendaraan Terparkir");
             kembali();
 
+        } else if (pilihan == 3) {
+            header_pendek("TOP UP SALDO");
+            top_up_saldo(list[id]);
+            kembali();
