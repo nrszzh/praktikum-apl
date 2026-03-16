@@ -208,6 +208,23 @@ void menu_admin(data_parkir denah[2][20], data_member list[]) {
             kembali();
 
         }
-
     } while (pilihan != 0);
+}
+
+void menu_member(int id, data_member list[], data_parkir denah[2][20]) {
+    int pilihan;
+    do {
+        system("cls");
+        cout << "Halo " + list[id].nama;
+        cout << "Saldo: Rp " << left << setw(11) << list[id].saldo << endl;
+        header_pjg("MENU MEMBER");
+        cout << "| 1. | Booking Slot Parkir                                   |" << endl;
+        cout << "| 2. | Bayar Parkir                                          |" << endl;
+        cout << "| 3. | Top Up Saldo                                          |" << endl;
+        cout << "| 4. | Lihat Slot Parkir                                     |" << endl;
+        cout << "| 0. | Logout                                                |" << endl;
+        cout << "==============================================================" << endl;
+        cout << "Pilihan: ";
+        cin >> pilihan;
+    }
 }
