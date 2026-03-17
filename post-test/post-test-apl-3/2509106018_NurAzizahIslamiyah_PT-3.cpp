@@ -293,8 +293,6 @@ void menu_member(int id, data_member list[], data_parkir denah[2][20]) {
     } while (pilihan != 0);
 }
 
-
-
 int main() {
     data_parkir denah_parkir[2][20];
     data_member list_member[10];
