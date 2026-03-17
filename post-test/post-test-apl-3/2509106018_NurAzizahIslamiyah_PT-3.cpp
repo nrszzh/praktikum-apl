@@ -349,6 +349,19 @@ int main() {
                     }
                 }
             }
-        }
+
+        } else if (pilihan == 2) {
+            header_pendek("REGISTRASI");
+            cout << "Nama     : ";
+            cin.ignore();
+            getline(cin, list_member[jml_member].nama);
+            cout << "Password : ";
+            cin >> list_member[jml_member].pw;
+            tampil_output("Registrasi Berhasil, ID", jml_member++);
+            kembali();
+
+        } else if (pilihan == 3)
+        read_user(denah_parkir);
     }
+    return 0;
 }
