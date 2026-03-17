@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <iomanip> //untuk tampilan output (setw)
 #include <conio.h> //getch
 using namespace std;
@@ -22,11 +23,11 @@ struct data_member {
 };
 
 void tampil_output(string output) {
-    cout << "\n >> " << output << "!" << endl;
+    cout << "\n >> " << output << endl;
 }
 
 void tampil_output(string output, int nilai) {
-    cout << "\n >> " << output << " : " << nilai << "!" << endl; //overloading (parameter yg keluarin nilai)
+    cout << "\n >> " << output << " : " << nilai << endl; //overloading (parameter yg keluarin nilai)
 }
 
 void kembali() {
@@ -88,7 +89,10 @@ void read_user(data_parkir denah[2][20]) {
             if ((j + 1) % 10 == 0) cout << endl;
         }
         cout << " ------------------------------------------------" << endl;
-    }
+    }   
+    cout << " \nKeterangan : " << endl;
+    cout << " [X] : Terisi                   [R] : Repair" << endl;
+    cout << " [B] : Booking                  [ ] : Kosong" << endl;
     kembali();
 }
 
@@ -97,18 +101,18 @@ void read_admin(data_parkir denah[2][20], data_member list[]) {
     for (int i = 0; i < tingkat; i++) {
         cout << "\nLANTAI " << i + 1 << endl;
         cout << "+------+------------+---------------+------------------------+" << endl;
-        cout << "| SLOT |   STATUS   |     PLAT      |         PEMILIK         |" << endl;
+        cout << "| SLOT |   STATUS   |     PLAT      |         PEMILIK        |" << endl;
         cout << "+------+------------+---------------+------------------------+" << endl;
         bool ada = false;
         for (int j = 0; j < slot; j++) {
             if (denah[i][j].terisi || denah[i][j].booking) {
                 string status = (denah[i][j].id_member == -2) ? "PERBAIKAN" : (denah[i][j].terisi ? "TERISI" : "BOOKED");
-                string pm = (denah[i][j].id_member >= 0) ? list[denah[i][j].id_member].nama : (denah[i][j].id_member == -2 ? "-" : "Umum");
-                cout << " | " << left << setw(4) << j + 1 << " | " << setw(10) << status << " | " << setw(13) << denah[i][j].plat << "| " << setw(22) << pm << " |" << endl;
+                string pemilik = (denah[i][j].id_member >= 0) ? list[denah[i][j].id_member].nama : (denah[i][j].id_member == -2 ? "-" : "Umum");
+                cout << "| " << left << setw(4) << j + 1 << " | " << setw(10) << status << " | " << setw(13) << denah[i][j].plat << " | " << setw(22) << pemilik << " |" << endl;
                 ada = true;
             }
         }
-        if (!ada) cout << "|                 ( Tidak ada data kendaraan )                 |" << endl;
+        if (!ada) cout << "|                ( Tidak ada data kendaraan )                 |" << endl;
         cout << "+------+------------+---------------+------------------------+" << endl;
     }
     kembali();
@@ -131,69 +135,84 @@ void menu_admin(data_parkir denah[2][20], data_member list[]) {
             header_pendek("INPUT DATA PARKIR");
             int lantai;
             int slot_parkir;
-            cout << "Lantai               : "; 
+            cout << "Lantai               : ";
             cin >> lantai;
-            cout << "Slot                 : "; 
+            cout << "Slot                 : ";
             cin >> slot_parkir;
-            data_parkir &idx = denah[lantai-1][slot_parkir-1];
-            if (idx.booking) {
-                cout << ">> Booking oleh: " << list[idx.id_member].nama << endl;
-                idx.booking = false;
+            data_parkir &dslot = denah[lantai-1][slot_parkir-1];
+
+            if (dslot.terisi || dslot.booking) {
+                tampil_output("Slot Tidak Tersedia (Terisi/Booking)");
+            } 
+            else {
+                cout << "Plat                 : "; 
+                cin.ignore();
+                getline(cin, dslot.plat);
+                cout << "Jam                  : ";
+                cin >> dslot.jam_masuk;
+                cout << "ID Member (Umum -1)  : ";
+                cin >> dslot.id_member;
+                dslot.terisi = true; 
+                tampil_output("Data Berhasil Diinput"); 
             }
-            cout << "Plat                 : "; 
-            cin.ignore(); getline(cin, idx.plat);
-            cout << "Jam                  : "; 
-            cin >> idx.jam_masuk;
-            if (idx.id_member < 0) { cout << "ID Member (Umum -1)  : ";
-                cin >> idx.id_member; }
-            idx.terisi = true; 
-            tampil_output("Data Berhasil Diinput"); 
             kembali();
+        }
 
-        } else if (pilihan == 2){
+        else if (pilihan == 2) {
             read_admin(denah, list);
+        }
 
-        } else if (pilihan == 3) {
+        else if (pilihan == 3) {
             header_pendek("UPDATE SLOT PARKIR");
             int pil_update;
-            cout << "| 1. | Ubah Data Parkir                      |" << endl;
-            cout << "| 2. | Ubah Status (Maintenance)             |" << endl;
-            cout << "==============================================" << endl;
-            cout << "Pilihan: "; 
+            cout << "| 1. | Ubah Data Parkir                  |" << endl;
+            cout << "| 2. | Ubah Status Slot                  |" << endl;
+            cout << "| 0. | Kembali                           |" << endl;
+            cout << "==========================================" << endl;
+            cout << "Pilihan: ";
             cin >> pil_update;
+
+            if (pil_update == 0) {
+                continue; 
+            }
+
             int lantai;
             int slot_parkir;
-            cout << "Lantai   : "; 
+            cout << "Lantai   : ";
             cin >> lantai;
-            cout << "Slot     : "; 
+            cout << "Slot     : ";
             cin >> slot_parkir;
-            data_parkir &idx = denah[lantai-1][slot_parkir-1];
+            data_parkir &dslot = denah[lantai-1][slot_parkir-1];
+
             if (pil_update == 1) {
-                if (idx.terisi) {
-                    cout << "Plat Baru: "; 
+                if (dslot.terisi) {
+                    cout << "Plat Baru: ";
                     cin.ignore();
-                    getline(cin, idx.plat);
+                    getline(cin, dslot.plat);
                     cout << "Jam Baru : ";
-                    cin >> idx.jam_masuk;
+                    cin >> dslot.jam_masuk;
                     tampil_output("Data Diperbaharui");
                 } else tampil_output("Slot Kosong");
 
             } else {
                 int status;
-                cout << "1. Repair | 2. Normal: "; 
+                cout << "1. Repair | 2. Normal: ";
                 cin >> status;
-                if (status == 1) { idx.id_member = -2;
-                    idx.terisi = true; idx.plat = "PERBAIKAN";
-                }
-                else { idx.id_member = -1;
-                    idx.terisi = false;
-                    idx.plat = "-";
+                if (status == 1) { 
+                    dslot.id_member = -2;
+                    dslot.terisi = true;
+                    dslot.plat = "PERBAIKAN";
+                } else { 
+                    dslot.id_member = -1;
+                    dslot.terisi = false;
+                    dslot.plat = "-";
                 }
                 tampil_output("Status Berhasil Diubah");
             }
             kembali();
+        }
 
-        } else if (pilihan == 4) {
+        else if (pilihan == 4) {
             header_pendek("KOSONGKAN SLOT");
             int lantai;
             int slot_parkir;
@@ -206,18 +225,17 @@ void menu_admin(data_parkir denah[2][20], data_member list[]) {
             denah[lantai-1][slot_parkir-1].id_member = -1;
             tampil_output("Slot Berhasil Dikosongkan");
             kembali();
-
         }
+
     } while (pilihan != 0);
 }
-
 void menu_member(int id, data_member list[], data_parkir denah[2][20]) {
     int pilihan;
     do {
-        system("cls");
-        cout << "Halo " + list[id].nama;
-        cout << "Saldo: Rp " << left << setw(11) << list[id].saldo << endl;
         header_pjg("MENU MEMBER");
+        cout << "| Halo! " << left << setw(15) << list[id].nama << right << setw(16);
+        cout << "| Saldo: Rp " << left << setw(22) << list[id].saldo << "|" << endl;
+        cout << string(62, '-') << endl;
         cout << "| 1. | Booking Slot Parkir                                   |" << endl;
         cout << "| 2. | Bayar Parkir                                          |" << endl;
         cout << "| 3. | Top Up Saldo                                          |" << endl;
@@ -231,16 +249,15 @@ void menu_member(int id, data_member list[], data_parkir denah[2][20]) {
             header_pendek("BOOKING SLOT");
             int lantai;
             int slot_parkir;
-            cout << "Lantai (1.Motor/2.Mobil) : "; 
+            cout << "Lantai (1.Mtr/2.Mbl) : "; 
             cin >> lantai;
-            cout << "Nomor Slot (1-20)        : "; 
+            cout << "Nomor Slot (1-20)    : "; 
             cin >> slot_parkir;
             if (!denah[lantai-1][slot_parkir-1].terisi && !denah[lantai-1][slot_parkir-1].booking) {
                 denah[lantai-1][slot_parkir-1].booking = true;
                 denah[lantai-1][slot_parkir-1].id_member = id;
                 tampil_output("Berhasil Booking", slot_parkir);
-            } else 
-            tampil_output("Slot Tidak Tersedia");
+            } else tampil_output("Slot Tidak Tersedia");
             kembali();
 
         } else if (pilihan == 2) {
@@ -249,19 +266,18 @@ void menu_member(int id, data_member list[], data_parkir denah[2][20]) {
             for(int i=0; i<tingkat; i++) {
                 for(int j=0; j<slot; j++) {
                     if(denah[i][j].id_member == id && denah[i][j].terisi) {
-                        int jam_kel;
+                        int jam_keluar;
                         cout << "Lokasi    : LT " << i+1 << " Slot " << j+1 << endl;
                         cout << "Jam Keluar: ";
-                        cin >> jam_kel;
-                        int biaya = hitung_biaya(denah[i][j].jam_masuk, jam_kel, i);
+                        cin >> jam_keluar;
+                        int biaya = hitung_biaya(denah[i][j].jam_masuk, jam_keluar, i);
                         if(list[id].saldo >= biaya) {
                             list[id].saldo -= biaya;
-                            denah[i][j].terisi = false;
-                            denah[i][j].id_member = -1;
-                            denah[i][j].plat = "-";
+                            denah[i][j].terisi = false; denah[i][j].id_member = -1; denah[i][j].plat = "-";
                             tampil_output("Bayar Berhasil, Sisa Saldo", list[id].saldo);
                         } else tampil_output("Saldo Kurang");
-                        ketemu = true; break;
+                        ketemu = true;
+                        break;
                     }
                 }
             }
@@ -270,11 +286,69 @@ void menu_member(int id, data_member list[], data_parkir denah[2][20]) {
 
         } else if (pilihan == 3) {
             header_pendek("TOP UP SALDO");
-            top_up_saldo(list[id]);
-            kembali();
-
-        } else if (pilihan == 4) 
-        read_user(denah);
-
+            top_up_saldo(list[id]); kembali();
+        } else if (pilihan == 4) read_user(denah);
     } while (pilihan != 0);
+}
+
+int main() {
+    data_parkir denah_parkir[2][20];
+    data_member list_member[10];
+    int jml_member = 1;
+    list_member[0] = {"Nur", "018", 100000, true};
+
+    int pilihan;
+    while (true) {
+        header_pjg("SMART PARKING MALL");
+        cout << "| 1. | Login                                                 |" << endl;
+        cout << "| 2. | Registrasi                                            |" << endl;
+        cout << "| 3. | Lihat Slot Parkir                                     |" << endl;
+        cout << "| 0. | Keluar                                                |" << endl;
+        cout << "==============================================================" << endl;
+        cout << "Pilihan: ";
+        cin >> pilihan;
+
+        if (pilihan == 0) {
+        system("cls");
+        cout << "Program Berhenti :)" << endl;
+        break;
+        }
+
+        if (pilihan == 1) {
+            int percobaan = 0;
+            while (percobaan < 3) {
+                header_pendek("LOGIN");
+                string usname, pw;
+                cout << "Username: ";
+                cin.ignore();
+                getline(cin, usname);
+                cout << "Password: ";
+                cin >> pw;
+
+                if (usname == "admin" && pw == "123") {
+                    menu_admin(denah_parkir, list_member);
+                    break;
+                } else {
+                    int id = -1;
+                    for(int i=0; i<jml_member; i++) {
+                        if(list_member[i].nama == usname && list_member[i].pw == pw)
+                        id = i;
+                    }
+                    if (id != -1) {
+                        menu_member(id, list_member, denah_parkir);
+                        break;
+                    } else {
+                        percobaan++;
+                        if (percobaan < 3) {
+                            tampil_output("Login Gagal! Sisa Percobaan", 3 - percobaan);
+                            getch();
+                        } else {
+                            tampil_output("Percobaan Habis, Program Berhenti.");
+                            return 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
