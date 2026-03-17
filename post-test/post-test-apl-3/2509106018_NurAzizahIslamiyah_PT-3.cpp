@@ -286,10 +286,14 @@ void menu_member(int id, data_member list[], data_parkir denah[2][20]) {
 
         } else if (pilihan == 3) {
             header_pendek("TOP UP SALDO");
-            top_up_saldo(list[id]); kembali();
-        } else if (pilihan == 4) read_user(denah);
+            top_up_saldo(list[id]);
+            kembali();
+        } else if (pilihan == 4)
+        read_user(denah);
     } while (pilihan != 0);
 }
+
+
 
 int main() {
     data_parkir denah_parkir[2][20];
