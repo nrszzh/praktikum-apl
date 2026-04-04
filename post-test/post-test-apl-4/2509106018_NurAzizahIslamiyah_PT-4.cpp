@@ -59,6 +59,14 @@ void header_pendek(string judul) {
     cout << string(lebar, '=') << endl;
 }
 
+void ehr_input() {
+    cin.clear(); 
+    cin.ignore(1000, '\n');
+    cout << "\n >> Input harus berupa angka" << endl;
+    cout << " >> Coba Lagi";
+    getch();
+}
+
 void top_up_saldo(data_member &member) {
     int nominal;
     cout << "Masukkan Nominal: Rp"; 
