@@ -137,7 +137,10 @@ void menu_admin(data_parkir denah[2][20], data_member list[]) {
         cout << "| 0. | Logout                                                |" << endl;
         cout << "==============================================================" << endl;
         cout << "Pilihan: ";
-        cin >> pilihan;
+        if (!(cin >> pilihan)) {
+            ehr_input();
+            continue;
+        }
 
         if (pilihan == 1) {
             header_pendek("INPUT DATA PARKIR");
@@ -178,6 +181,10 @@ void menu_admin(data_parkir denah[2][20], data_member list[]) {
             cout << "| 0. | Kembali                           |" << endl;
             cout << "==========================================" << endl;
             cout << "Pilihan: ";
+            if (!(cin >> pil_update)) {
+            ehr_input();
+            continue;
+        }
             cin >> pil_update;
 
             if (pil_update == 0) {
