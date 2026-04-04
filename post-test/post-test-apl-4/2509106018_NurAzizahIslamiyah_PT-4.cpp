@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
-#include <iomanip> //untuk tampilan output (setw)
-#include <conio.h> //getch
+#include <iomanip>
+#include <conio.h>
 using namespace std;
 
 int tingkat = 2;
