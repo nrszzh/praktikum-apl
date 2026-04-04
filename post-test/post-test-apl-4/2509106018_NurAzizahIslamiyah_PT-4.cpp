@@ -244,6 +244,7 @@ void menu_admin(data_parkir denah[2][20], data_member list[]) {
 
     } while (pilihan != 0);
 }
+
 void menu_member(int id, data_member list[], data_parkir denah[2][20]) {
     int pilihan;
     do {
@@ -258,7 +259,10 @@ void menu_member(int id, data_member list[], data_parkir denah[2][20]) {
         cout << "| 0. | Logout                                                |" << endl;
         cout << "==============================================================" << endl;
         cout << "Pilihan: ";
-        cin >> pilihan;
+        if (!(cin >> pilihan)) {
+            ehr_input();
+            continue;
+        }
 
         if (pilihan == 1) {
             header_pendek("BOOKING SLOT");
@@ -303,8 +307,10 @@ void menu_member(int id, data_member list[], data_parkir denah[2][20]) {
             header_pendek("TOP UP SALDO");
             top_up_saldo(list[id]);
             kembali();
+
         } else if (pilihan == 4)
         read_user(denah);
+
     } while (pilihan != 0);
 }
 
@@ -323,7 +329,10 @@ int main() {
         cout << "| 0. | Keluar                                                |" << endl;
         cout << "==============================================================" << endl;
         cout << "Pilihan: ";
-        cin >> pilihan;
+        if (!(cin >> pilihan)) {
+            ehr_input();
+            continue;
+        }
 
         if (pilihan == 0) {
         system("cls");
