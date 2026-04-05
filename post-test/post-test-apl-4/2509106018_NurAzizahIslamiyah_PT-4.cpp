@@ -299,17 +299,18 @@ void menu_member(int id, data_member list[], data_parkir denah[2][20]) {
                         cout << "Jam Keluar: ";
                         cin >> jam_keluar;
                         int biaya = hitung_biaya(denah[i][j].jam_masuk, jam_keluar, i);
-                        if(list[id].saldo >= biaya) {
-                            list[id].saldo -= biaya;
-                            denah[i][j].terisi = false; denah[i][j].id_member = -1; denah[i][j].plat = "-";
-                            tampil_output("Bayar Berhasil, Sisa Saldo", list[id].saldo);
-                        } else tampil_output("Saldo Kurang");
+                        cout << "Total Biaya : Rp " << biaya << endl;
+                        pembayaran(&list[id].saldo, biaya);
+                        
+                        denah[i][j].terisi = false;
+                        denah[i][j].id_member = -1;
+                        denah[i][j].plat = "-";
                         ketemu = true;
                         break;
                     }
                 }
             }
-            if(!ketemu) tampil_output("Tidak Ada Kendaraan Terparkir");
+            if(!ketemu) tampil_output("Tidak ada kendaraan terparkir");
             kembali();
 
         } else if (pilihan == 3) {
