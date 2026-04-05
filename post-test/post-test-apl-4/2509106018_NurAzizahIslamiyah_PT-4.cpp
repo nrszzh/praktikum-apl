@@ -206,11 +206,10 @@ void menu_admin(data_parkir denah[2][20], data_member list[]) {
             ehr_input();
             continue;
         }
-            cin >> pil_update;
+        cin >> pil_update;
 
-            if (pil_update == 0) {
+            if (pil_update == 0) 
                 continue; 
-            }
 
             int lantai;
             int slot_parkir;
@@ -218,31 +217,32 @@ void menu_admin(data_parkir denah[2][20], data_member list[]) {
             cin >> lantai;
             cout << "Slot     : ";
             cin >> slot_parkir;
-            data_parkir &dslot = denah[lantai-1][slot_parkir-1];
+            data_parkir *ptr_slot = &denah[lantai-1][slot_parkir-1];
 
             if (pil_update == 1) {
-                if (dslot.terisi) {
+                if (ptr_slot->terisi) {
                     cout << "Plat Baru: ";
                     cin.ignore();
-                    getline(cin, dslot.plat);
+                    getline(cin, ptr_slot->plat);
                     cout << "Jam Baru : ";
-                    cin >> dslot.jam_masuk;
-                    tampil_output("Data Diperbaharui");
+                    cin >> ptr_slot->jam_masuk;
+                    tampil_output("Data Diperbarui");
                 } else tampil_output("Slot Kosong");
-
-            } else {
+            } 
+            else {
                 int status;
                 cout << "1. Repair | 2. Normal: ";
                 cin >> status;
-                if (status == 1) { 
-                    dslot.id_member = -2;
-                    dslot.terisi = true;
-                    dslot.plat = "PERBAIKAN";
+                if (status == 1) {
+                    ptr_slot->id_member = -2;
+                    ptr_slot->terisi = true;
+                    ptr_slot->plat = "PERBAIKAN";
                 } else { 
-                    dslot.id_member = -1;
-                    dslot.terisi = false;
-                    dslot.plat = "-";
+                    ptr_slot->id_member = -1;
+                    ptr_slot->terisi = false;
+                    ptr_slot->plat = "-";
                 }
+                upstatus_slot(ptr_slot, status);
                 tampil_output("Status Berhasil Diubah");
             }
             kembali();
