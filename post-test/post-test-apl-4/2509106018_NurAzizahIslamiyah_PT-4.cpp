@@ -126,6 +126,15 @@ void read_admin(data_parkir denah[2][20], data_member list[]) {
     kembali();
 }
 
+void pembayaran(int *saldo_user, int biaya) {
+    if (*saldo_user >= biaya) {
+        *saldo_user -= biaya;
+        tampil_output("Bayar Berhasil");
+    } else {
+        tampil_output("Saldo Kurang");
+    }
+}
+
 void menu_admin(data_parkir denah[2][20], data_member list[]) {
     int pilihan;
     do {
