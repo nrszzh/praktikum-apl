@@ -135,6 +135,18 @@ void pembayaran(int *saldo_user, int biaya) {
     }
 }
 
+void upstatus_slot(data_parkir *dslot, int status) {
+    if (status == 1) {
+        dslot->id_member = -2;
+        dslot->terisi = true;
+        dslot->plat = "REPAIR";
+    } else {
+        dslot->id_member = -1;
+        dslot->terisi = false;
+        dslot->plat = "-";
+    }
+}
+
 void menu_admin(data_parkir denah[2][20], data_member list[]) {
     int pilihan;
     do {
