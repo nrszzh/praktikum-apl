@@ -27,7 +27,7 @@ void tampil_output(string output) {
 }
 
 void tampil_output(string output, int nilai) {
-    cout << "\n >> " << output << " : " << nilai << endl; //overloading (parameter yg keluarin nilai)
+    cout << "\n >> " << output << " : " << nilai << endl;
 }
 
 void kembali() {
@@ -67,15 +67,20 @@ void ehr_input() {
     getch();
 }
 
-void top_up_saldo(data_member &member) {
+void top_up_saldo(data_member *member) { 
     int nominal;
-    cout << "Masukkan Nominal: Rp"; 
-    cin >> nominal;
+    cout << " Masukkan Nominal: Rp"; 
+    while (!(cin >> nominal)) {
+        ehr_input();
+        system("cls");
+        cout << " === TOP UP SALDO ===\n";
+        cout << " Masukkan Nominal: Rp";
+    }
+
     if (nominal <= 0) {
         tampil_output("Nominal tidak valid!");
-        top_up_saldo(member); 
     } else {
-        member.saldo += nominal;
+        member->saldo += nominal; //ptr ke struct datamember
         tampil_output("Saldo Berhasil Ditambahkan");
     }
 }
@@ -327,7 +332,7 @@ void menu_member(int id, data_member list[], data_parkir denah[2][20]) {
 
         } else if (pilihan == 3) {
             header_pendek("TOP UP SALDO");
-            top_up_saldo(list[id]);
+            top_up_saldo(&list[id]);
             kembali();
 
         } else if (pilihan == 4)
