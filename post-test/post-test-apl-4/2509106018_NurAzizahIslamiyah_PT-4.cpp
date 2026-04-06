@@ -79,7 +79,7 @@ void top_up_saldo(data_member *member) {
     if (nominal <= 0) {
         tampil_output("Nominal tidak valid!");
     } else {
-        member->saldo += nominal; //ptr ke struct datammber
+        member->saldo += nominal;
         tampil_output("Saldo Berhasil Ditambahkan");
     }
 }
@@ -241,6 +241,7 @@ void menu_admin(data_parkir denah[2][20], data_member list[]) {
                     }
                     tampil_output("Status Berhasil Diubah");
                 }
+
                 else if (pil_update !=0 ){
                     tampil_output("Pilihan tidak tersedia");
                     getch();
