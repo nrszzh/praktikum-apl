@@ -64,7 +64,7 @@ void ehr_input() {
     cin.ignore(1000, '\n');
     cout << "\n >> Input harus berupa angka (Enter)" << endl;
     getch();
-}
+} 
 
 void top_up_saldo(data_member *member) { 
     int nominal;
