@@ -66,7 +66,6 @@ void ehr_input() {
     getch();
 }
 
-
 void top_up_saldo(data_member *member) { 
     int nominal;
     cout << " Masukkan Nominal: Rp"; 
@@ -202,21 +201,14 @@ void menu_admin(data_parkir denah[2][20], data_member list[]) {
                 if (pil_update == 0)
                 break;
 
-                else if (pil_update !=0 ){
-                    tampil_output("Pilihan tidak tersedia");
-                    getch();
-                    break;
-                }
-
-                int lantai;
-                int slot_parkir;
-                cout << "Lantai   : ";
-                cin >> lantai;
-                cout << "Slot     : ";
-                cin >> slot_parkir;
-                data_parkir *ptr_slot = &denah[lantai-1][slot_parkir-1];
-
                 if (pil_update == 1) {
+                    int lantai;
+                    int slot_parkir;
+                    cout << "Lantai   : ";
+                    cin >> lantai;
+                    cout << "Slot     : ";
+                    cin >> slot_parkir;
+                    data_parkir *ptr_slot = &denah[lantai-1][slot_parkir-1];
                     if (ptr_slot->terisi) {
                         cout << "Plat Baru: ";
                         cin.ignore();
@@ -228,6 +220,13 @@ void menu_admin(data_parkir denah[2][20], data_member list[]) {
                 } 
 
                 else if (pil_update == 2) {
+                    int lantai;
+                    int slot_parkir;
+                    cout << "Lantai   : ";
+                    cin >> lantai;
+                    cout << "Slot     : ";
+                    cin >> slot_parkir;
+                    data_parkir *ptr_slot = &denah[lantai-1][slot_parkir-1];
                     int status;
                     cout << "1. Repair | 2. Normal: ";
                     cin >> status;
@@ -241,6 +240,11 @@ void menu_admin(data_parkir denah[2][20], data_member list[]) {
                         ptr_slot->plat = "-";
                     }
                     tampil_output("Status Berhasil Diubah");
+                }
+                else if (pil_update !=0 ){
+                    tampil_output("Pilihan tidak tersedia");
+                    getch();
+                    break;
                 }
                 kembali();
             }
