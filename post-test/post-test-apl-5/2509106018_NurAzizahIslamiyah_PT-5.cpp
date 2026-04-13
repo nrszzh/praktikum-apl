@@ -159,6 +159,54 @@ void copy(data_member asal[], data_member tujuan[], int n) {
     for(int i=0; i<n; i++) tujuan[i] = asal[i];
 }
 
+void bubble_sort_desc(data_member list[], int n) { //urut nama (bubble sort) desc
+    data_member temp[10];
+    copy(list, temp, n);
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (temp[j].nama < temp[j + 1].nama) {
+                data_member swap_var = temp[j];
+                temp[j] = temp[j + 1];
+                temp[j + 1] = swap_var;
+            }
+        }
+    }
+    cout << ">>> URUT NAMA MEMBER <<<" << endl;
+    tabel_sort(temp, n, list);
+}
+
+void select_sort_asc(data_member list[], int n) { //saldo (selection sort) asc
+    data_member temp[10];
+    copy(list, temp, n);
+    for (int i = 0; i < n - 1; i++) {
+        int min_idx = i;
+        for (int j = i + 1; j < n; j++) {
+            if (temp[j].saldo < temp[min_idx].saldo) min_idx = j;
+        }
+        data_member swap_var = temp[min_idx];
+        temp[min_idx] = temp[i];
+        temp[i] = swap_var;
+    }
+    cout << ">>> URUT SALDO MEMBER <<<" << endl;
+    tabel_sort(temp, n, list);
+}
+
+void insert_sort_asc(data_member list[], int n) { //id regis(insertion sort) asc
+    data_member temp[10];
+    copy(list, temp, n);
+    for (int i = 1; i < n; i++) {
+        data_member key = temp[i];
+        int j = i - 1;
+        while (j >= 0 && temp[j].id > key.id) {
+            temp[j + 1] = temp[j];
+            j--;
+        }
+        temp[j + 1] = key;
+    }
+    cout << ">>> URUT ID REGISTRASI <<<" << endl;
+    tabel_sort(temp, n, list);
+}
+
 void menu_admin(data_parkir denah[2][20], data_member list[]) {
     int pilihan;
     while (true) {
