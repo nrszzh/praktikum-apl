@@ -22,6 +22,7 @@ struct data_member {
     int saldo = 0;
     bool aktif = false;
 };
+
 void tampil_output(string output) {
     cout << "\n >> " << output << endl;
 }
@@ -84,14 +85,15 @@ void top_up_saldo(data_member *member) {
     }
 }
 
-void hitung_biaya(int &saldo_user, int masuk, int keluar, int lantai) { 
+void hitung_biaya(int *saldo_user, int masuk, int keluar, int lantai) {
     int durasi = keluar - masuk;
     if (durasi <= 0) durasi = 1;
     int biaya = durasi * (lantai == 0 ? 2000 : 5000);
+    
     cout << "Total Biaya : Rp " << biaya << endl;
-
-    if (saldo_user >= biaya) {
-        saldo_user -= biaya; 
+    
+    if (*saldo_user >= biaya) {
+        *saldo_user -= biaya;
         tampil_output("Pembayaran Berhasil");
     } else {
         tampil_output("Saldo Kurang!");
@@ -207,7 +209,7 @@ void insert_sort_asc(data_member list[], int n) { //id regis(insertion sort) asc
     tabel_sort(temp, n, list);
 }
 
-void menu_admin(data_parkir denah[2][20], data_member list[]) {
+void menu_admin(data_parkir denah[2][20], data_member list[], int &jml_member) {
     int pilihan;
     while (true) {
         header_pjg("MENU ADMIN");
@@ -215,6 +217,7 @@ void menu_admin(data_parkir denah[2][20], data_member list[]) {
         cout << "| 2. | Lihat Slot Parkir                                     |" << endl;
         cout << "| 3. | Update Slot Parkir                                    |" << endl;
         cout << "| 4. | Kosongkan Slot Parkir                                 |" << endl;
+        cout << "| 5. | Sorting Data Member                                   |" << endl;
         cout << "| 0. | Logout                                                |" << endl;
         cout << "==============================================================" << endl;
         cout << "Pilihan: ";
@@ -333,6 +336,45 @@ void menu_admin(data_parkir denah[2][20], data_member list[]) {
             tampil_output("Slot Berhasil Dikosongkan");
             kembali();
 
+        } else if (pilihan == 5) {
+            int pil_sort;
+            while(true) {
+                system("cls");
+                header_pendek("SORTING DATA MEMBER");
+                cout << "| 1. | Urut Nama Member                  |" << endl;
+                cout << "| 2. | Urut Saldo Member                 |" << endl;
+                cout << "| 3. | Urut ID Registrasi                |" << endl;
+                cout << "| 0. | Kembali                           |" << endl;
+                cout << "==========================================" << endl;
+                cout << "Pilihan  : ";
+                if (!(cin >> pil_sort)) {
+                    ehr_input(); 
+                    continue; }
+
+                if (pil_sort == 0) 
+                break;
+
+                if (pil_sort == 1) {
+                    system("cls");
+                    bubble_sort_desc(list, jml_member);
+
+                } else if (pil_sort == 2) {
+                    system("cls");
+                    select_sort_asc(list, jml_member);
+
+                } else if (pil_sort == 3) {
+                    system("cls");
+                    insert_sort_asc(list, jml_member);
+
+                } else {
+                    cout << "\n >> Pilihan tidak valid";
+                    getch();
+                    continue;
+                } 
+                kembali();
+            }
+        
+
         } else if (pilihan == 0) {
             break;
 
@@ -387,7 +429,7 @@ void menu_member(int id, data_member list[], data_parkir denah[2][20]) {
                         cout << "Lokasi     : LT " << i+1 << " Slot " << j+1 << endl;
                         cout << "Jam Keluar : ";
                         cin >> jam_keluar;
-                        hitung_biaya(list[id].saldo, denah[i][j].jam_masuk, jam_keluar, i);
+                        hitung_biaya(&list[id].saldo, denah[i][j].jam_masuk, jam_keluar, i);
                         
                         denah[i][j].terisi = false;
                         denah[i][j].id_member = -1;
@@ -417,6 +459,10 @@ void menu_member(int id, data_member list[], data_parkir denah[2][20]) {
         }
     }
 }
+
+
+
+
 
 int main() {
     data_parkir denah_parkir[2][20];
@@ -460,7 +506,7 @@ int main() {
                 cin >> pw;
 
                 if (usname == "admin" && pw == "123") {
-                    menu_admin(denah_parkir, list_member);
+                    menu_admin(denah_parkir, list_member, jml_member);
                     break;
                 } else {
                     int id = -1;
@@ -486,6 +532,7 @@ int main() {
 
         } else if (pilihan == 2) {
             header_pendek("REGISTRASI");
+            list_member[jml_member].id = jml_member;
             cout << "Nama     : ";
             cin.ignore();
             getline(cin, list_member[jml_member].nama);
