@@ -138,6 +138,27 @@ void read_admin(data_parkir denah[2][20], data_member list[]) {
     kembali();
 }
 
+void tabel_sort(data_member temp[], int n, data_member asli[]) {
+    cout << "+------+----------------------+----------------------+" << endl;
+    cout << "| ID   | Nama Member          | Saldo                |" << endl;
+    cout << "+------+----------------------+----------------------+" << endl;
+    
+    if (n <= 0) {
+        cout << "|        ( Belum ada data member terdaftar )          |" << endl;
+    } else {
+        for (int i = 0; i < n; i++) {
+            cout << "| " << left << setw(4) << temp[i].id 
+                << " | " << setw(20) << temp[i].nama 
+                << " | Rp " << setw(17) << temp[i].saldo << " |" << endl;
+        }
+    }
+    cout << "+------+----------------------+----------------------+" << endl;
+}
+
+void copy(data_member asal[], data_member tujuan[], int n) {
+    for(int i=0; i<n; i++) tujuan[i] = asal[i];
+}
+
 void menu_admin(data_parkir denah[2][20], data_member list[]) {
     int pilihan;
     while (true) {
