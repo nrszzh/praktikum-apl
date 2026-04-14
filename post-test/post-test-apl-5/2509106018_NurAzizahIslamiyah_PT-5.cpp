@@ -164,14 +164,19 @@ void copy(data_member asal[], data_member tujuan[], int n) {
 void bubble_sort_desc(data_member list[], int n) { //urut nama (bubble sort) desc
     data_member temp[10];
     copy(list, temp, n);
+    bool swapped;
     for (int i = 0; i < n - 1; i++) {
+        swapped = false;
         for (int j = 0; j < n - i - 1; j++) {
             if (temp[j].nama < temp[j + 1].nama) {
                 data_member swap_var = temp[j];
                 temp[j] = temp[j + 1];
                 temp[j + 1] = swap_var;
+                swapped = true;
             }
         }
+        if (swapped == false)  
+        break;
     }
     cout << ">>> URUT NAMA MEMBER <<<" << endl;
     tabel_sort(temp, n, list);
@@ -183,11 +188,15 @@ void select_sort_asc(data_member list[], int n) { //saldo (selection sort) asc
     for (int i = 0; i < n - 1; i++) {
         int min_idx = i;
         for (int j = i + 1; j < n; j++) {
-            if (temp[j].saldo < temp[min_idx].saldo) min_idx = j;
+            if (temp[j].saldo < temp[min_idx].saldo) {
+                min_idx = j;
+            }
         }
-        data_member swap_var = temp[min_idx];
-        temp[min_idx] = temp[i];
-        temp[i] = swap_var;
+        if (min_idx != i) {
+            data_member swap_var = temp[min_idx];
+            temp[min_idx] = temp[i];
+            temp[i] = swap_var;
+        }
     }
     cout << ">>> URUT SALDO MEMBER <<<" << endl;
     tabel_sort(temp, n, list);
@@ -459,10 +468,6 @@ void menu_member(int id, data_member list[], data_parkir denah[2][20]) {
         }
     }
 }
-
-
-
-
 
 int main() {
     data_parkir denah_parkir[2][20];
