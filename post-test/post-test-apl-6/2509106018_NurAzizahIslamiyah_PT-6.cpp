@@ -218,6 +218,23 @@ void insert_sort_asc(data_member list[], int n) { //id regis(insertion sort) asc
     tabel_sort(temp, n, list);
 }
 
+void linear_nama(data_member *list, int n){
+    system("cls");
+    header_pendek("CARI NAMA MEMBER");
+    string target;
+    cout << " Masukkan Nama :";
+    cin.ignore();
+    getline(cin, target);
+    int indeks = -1;
+
+    for (int i = 0; i < n; i++){
+        if ((list + i)->nama == target) {
+            indeks = i;
+            break;
+        }
+    }
+}
+
 void menu_admin(data_parkir denah[2][20], data_member list[], int &jml_member) {
     int pilihan;
     while (true) {
