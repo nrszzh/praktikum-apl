@@ -218,6 +218,22 @@ void insert_sort_asc(data_member list[], int n) { //id regis(insertion sort) asc
     tabel_sort(temp, n, list);
 }
 
+void tabel_cari(data_member *list, int indeks) {
+    cout << "+------+----------------------+----------------------+" << endl;
+    cout << "| ID   | Nama Member          | Saldo                |" << endl;
+    cout << "+------+----------------------+----------------------+" << endl;
+
+    if(indeks != -1) {
+        cout << "| " << left << setw(4) << list[indeks].id 
+            << " | " << setw(20) << list[indeks].nama 
+            << " | Rp " << setw(17) << list[indeks].saldo << " |" << endl;
+    } else {
+        cout << "|              ( Data tidak ditemukan )              |" << endl;
+    }
+    
+    cout << "+------+----------------------+----------------------+" << endl;
+}
+
 void linear_nama(data_member *list, int n){
     system("cls");
     header_pendek("CARI NAMA MEMBER");
@@ -232,7 +248,7 @@ void linear_nama(data_member *list, int n){
             indeks = i;
             break;
         }
-    }
+    } tabel_cari(list, indeks);
 }
 
 void menu_admin(data_parkir denah[2][20], data_member list[], int &jml_member) {
@@ -419,6 +435,7 @@ void menu_admin(data_parkir denah[2][20], data_member list[], int &jml_member) {
                 break;
 
                 if(pil_cari == 1) {
+                    linear_nama(list, jml_member);
 
                 } else if (pil_cari ==2) {
 
