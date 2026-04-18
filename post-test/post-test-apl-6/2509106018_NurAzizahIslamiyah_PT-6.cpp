@@ -227,6 +227,7 @@ void menu_admin(data_parkir denah[2][20], data_member list[], int &jml_member) {
         cout << "| 3. | Update Slot Parkir                                    |" << endl;
         cout << "| 4. | Kosongkan Slot Parkir                                 |" << endl;
         cout << "| 5. | Sorting Data Member                                   |" << endl;
+        cout << "| 6. | Pencarian Data Member                                 |" << endl;
         cout << "| 0. | Logout                                                |" << endl;
         cout << "==============================================================" << endl;
         cout << "Pilihan: ";
@@ -382,7 +383,35 @@ void menu_admin(data_parkir denah[2][20], data_member list[], int &jml_member) {
                 } 
                 kembali();
             }
-        
+
+        }else if (pilihan == 6) {
+            int pil_cari;
+            while(true) {
+                header_pendek("PENCARIAN DATA MEMBER");
+                cout << "| 1. | Cari Nama                         |" << endl;
+                cout << "| 2. | Cari ID                           |" << endl;
+                cout << "| 0. | Kembali                           |" << endl;
+                cout << "==========================================" << endl;
+                cout << "Pilihan : ";
+                if (!(cin >> pil_cari)) {
+                    ehr_input();
+                    continue;
+                }
+
+                if (pil_cari == 0)
+                break;
+
+                if(pil_cari == 1) {
+
+                } else if (pil_cari ==2) {
+
+                } else {
+                    cout << "\n >> Pilihan tidak valid";
+                    getch();
+                    continue;
+                }
+
+            }
 
         } else if (pilihan == 0) {
             break;
