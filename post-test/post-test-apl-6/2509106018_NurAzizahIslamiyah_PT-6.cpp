@@ -251,6 +251,32 @@ void linear_nama(data_member *list, int n){
     } tabel_cari(list, indeks);
 }
 
+void binary_id(data_member *list, int n) {
+    system("cls");
+    header_pendek("CARI ID MEMBER");
+    int target;
+    cout  << " Masukkan ID : ";
+    if (!(cin >> target)) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        return;
+
+    } insert_sort_asc(list, n);
+
+    int low = 0;
+    int high = n-1;
+    int indeks = -1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if ((list + mid)->id == target) {
+            indeks = mid;
+            break;
+        } if ((list + mid)->id < target) low = mid + 1;
+        else high = mid -1;
+
+    } tabel_cari(list, indeks);
+}
+
 void menu_admin(data_parkir denah[2][20], data_member list[], int &jml_member) {
     int pilihan;
     while (true) {
