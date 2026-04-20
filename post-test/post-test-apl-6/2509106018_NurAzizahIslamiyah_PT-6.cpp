@@ -464,6 +464,7 @@ void menu_admin(data_parkir denah[2][20], data_member list[], int &jml_member) {
                     linear_nama(list, jml_member);
 
                 } else if (pil_cari ==2) {
+                    binary_id(list, jml_member);
 
                 } else {
                     cout << "\n >> Pilihan tidak valid";
