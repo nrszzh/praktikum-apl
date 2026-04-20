@@ -215,24 +215,24 @@ void insert_sort_asc(data_member list[], int n) { //id regis(insertion sort) asc
 }
 
 void tabel_cari(data_member *list, int indeks) {
-    cout << "+------+----------------------+----------------------+" << endl;
-    cout << "| ID   | Nama Member          | Saldo                |" << endl;
-    cout << "+------+----------------------+----------------------+" << endl;
+    cout << "+------+--------------------------+--------------------------+" << endl;
+    cout << "| ID   | Nama Member              | Saldo                    |" << endl;
+    cout << "+------+--------------------------+--------------------------+" << endl;
 
     if(indeks != -1) {
         cout << "| " << left << setw(4) << list[indeks].id 
-            << " | " << setw(20) << list[indeks].nama 
-            << " | Rp " << setw(17) << list[indeks].saldo << " |" << endl;
+            << " | " << setw(24) << list[indeks].nama 
+            << " | Rp " << setw(21) << list[indeks].saldo << " |" << endl;
     } else {
-        cout << "|              ( Data tidak ditemukan )              |" << endl;
+        cout << "|                  ( Data tidak ditemukan )                  |" << endl;
     }
     
-    cout << "+------+----------------------+----------------------+" << endl;
+    cout << "+------+--------------------------+--------------------------+" << endl;
 }
 
 void linear_nama(data_member *list, int n){ //linear search (nama mem)
     system("cls");
-    header_pendek("CARI NAMA MEMBER");
+    header_pjg("CARI NAMA MEMBER");
     string target;
     cout << " Masukkan Nama :";
     cin.ignore();
@@ -250,7 +250,7 @@ void linear_nama(data_member *list, int n){ //linear search (nama mem)
 
 void binary_id(data_member *list, int n) { //binary search (id mem)
     system("cls");
-    header_pendek("CARI ID MEMBER");
+    header_pjg("CARI ID MEMBER");
     int target;
     cout  << " Masukkan ID : ";
     if (!(cin >> target)) {
