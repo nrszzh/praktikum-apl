@@ -203,19 +203,15 @@ void select_sort_asc(data_member list[], int n) { //saldo (selection sort) asc
 }
 
 void insert_sort_asc(data_member list[], int n) { //id regis(insertion sort) asc
-    data_member temp[10];
-    copy(list, temp, n);
     for (int i = 1; i < n; i++) {
-        data_member key = temp[i];
+        data_member key = list[i];
         int j = i - 1;
-        while (j >= 0 && temp[j].id > key.id) {
-            temp[j + 1] = temp[j];
+        while (j >= 0 && list[j].id > key.id) {
+            list[j + 1] = list[j];
             j--;
         }
-        temp[j + 1] = key;
+        list[j + 1] = key;
     }
-    cout << ">>> URUT ID REGISTRASI <<<" << endl;
-    tabel_sort(temp, n, list);
 }
 
 void tabel_cari(data_member *list, int indeks) {
@@ -234,7 +230,7 @@ void tabel_cari(data_member *list, int indeks) {
     cout << "+------+----------------------+----------------------+" << endl;
 }
 
-void linear_nama(data_member *list, int n){
+void linear_nama(data_member *list, int n){ //linear search (nama mem)
     system("cls");
     header_pendek("CARI NAMA MEMBER");
     string target;
@@ -251,7 +247,8 @@ void linear_nama(data_member *list, int n){
     } tabel_cari(list, indeks);
 }
 
-void binary_id(data_member *list, int n) {
+
+void binary_id(data_member *list, int n) { //binary search (id mem)
     system("cls");
     header_pendek("CARI ID MEMBER");
     int target;
@@ -273,7 +270,6 @@ void binary_id(data_member *list, int n) {
             break;
         } if ((list + mid)->id < target) low = mid + 1;
         else high = mid -1;
-
     } tabel_cari(list, indeks);
 }
 
@@ -434,6 +430,8 @@ void menu_admin(data_parkir denah[2][20], data_member list[], int &jml_member) {
                 } else if (pil_sort == 3) {
                     system("cls");
                     insert_sort_asc(list, jml_member);
+                    cout << ">>> URUT ID REGISTRASI <<<" << endl;
+                    tabel_sort(list, jml_member, list);
 
                 } else {
                     cout << "\n >> Pilihan tidak valid";
@@ -471,7 +469,7 @@ void menu_admin(data_parkir denah[2][20], data_member list[], int &jml_member) {
                     getch();
                     continue;
                 }
-
+                kembali();
             }
 
         } else if (pilihan == 0) {
