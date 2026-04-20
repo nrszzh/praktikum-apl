@@ -247,7 +247,6 @@ void linear_nama(data_member *list, int n){ //linear search (nama mem)
     } tabel_cari(list, indeks);
 }
 
-
 void binary_id(data_member *list, int n) { //binary search (id mem)
     system("cls");
     header_pjg("CARI ID MEMBER");
