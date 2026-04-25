@@ -48,17 +48,28 @@ void top_up_saldo(data_member *member) {
 }
 
 void hitung_biaya(int *saldo_user, int masuk, int keluar, int lantai) {
-    int durasi = keluar - masuk;
-    if (durasi <= 0) durasi = 1;
-    int biaya = durasi * (lantai == 0 ? 2000 : 5000);
-    
-    cout << "Total Biaya : Rp " << biaya << endl;
-    
-    if (*saldo_user >= biaya) {
+    try {
+        
+        if (keluar < masuk) {
+            throw logic_error("Jam keluar tidak valid");
+        }
+        int durasi = keluar - masuk;
+        if (durasi <= 0) durasi = 1;
+        int biaya = durasi * (lantai == 0 ? 2000 : 5000);
+        
+        cout << "Total Biaya : Rp " << biaya << endl;
+        
+        if (*saldo_user < biaya) {
+            throw runtime_error("Saldo anda kurang!");
+        }
         *saldo_user -= biaya;
         tampil_output("Pembayaran Berhasil");
-    } else {
-        tampil_output("Saldo Kurang!");
+    }
+    catch (const logic_error& e) {
+        cout << "\n \033[31m >>  " << e.what() << "\033[0m" << endl;
+    }
+    catch (const runtime_error& e) {
+        cout << "\n \033[31m >>  " << e.what() << "\033[0m" << endl;
     }
 }
 
