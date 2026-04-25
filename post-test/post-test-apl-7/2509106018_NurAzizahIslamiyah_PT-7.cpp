@@ -2,6 +2,7 @@
 #include <string>
 #include <iomanip>
 #include <conio.h>
+#include <cstdlib>
 #include "bantu.h"
 using namespace std;
 
@@ -34,11 +35,15 @@ void top_up_saldo(data_member *member) {
         cout << " Masukkan Nominal: Rp";
     }
 
-    if (nominal <= 0) {
-        tampil_output("Nominal tidak valid!");
-    } else {
+    try {
+        if (nominal <= 0) {
+            throw invalid_argument("Nominal tidak valid!");
+        }
         member->saldo += nominal;
-        tampil_output("Saldo Berhasil Ditambahkan");
+        cout << ">> Saldo Berhasil ditambahkan" << endl;
+    }
+    catch (const invalid_argument& e) {
+        cout << "\n \033[31m >>  " << e.what() << "\033[0m" << endl;
     }
 }
 
