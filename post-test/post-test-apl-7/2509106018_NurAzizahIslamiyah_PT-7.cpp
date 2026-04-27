@@ -5,6 +5,7 @@
 #include "algo.h"
 using namespace std;
 
+
 void menu_admin(data_parkir denah[2][20], data_member list[], int &jml_member) {
     int pilihan;
     while (true) {
@@ -33,7 +34,7 @@ void menu_admin(data_parkir denah[2][20], data_member list[], int &jml_member) {
             cin >> slot_parkir;
             data_parkir *dslot = &denah[lantai-1][slot_parkir-1];
             if (dslot->terisi || dslot->booking)
-            tampil_output("Slot Tidak Tersedia (Terisi/Booking)");
+            tampil_gagal("Slot Tidak Tersedia (Terisi/Booking)");
             else {
                 cout << "Plat                 : "; 
                 cin.ignore();
@@ -43,7 +44,7 @@ void menu_admin(data_parkir denah[2][20], data_member list[], int &jml_member) {
                 cout << "ID Member (Umum -1)  : ";
                 cin >> dslot->id_member;
                 dslot->terisi = true;
-                tampil_output("Data Berhasil Diinput");
+                tampil_sukses("Data Berhasil Diinput");
             }
             kembali();
         }
@@ -83,8 +84,8 @@ void menu_admin(data_parkir denah[2][20], data_member list[], int &jml_member) {
                         getline(cin, ptr_slot->plat);
                         cout << "Jam Baru : ";
                         cin >> ptr_slot->jam_masuk;
-                        tampil_output("Data Diperbarui");
-                    } else tampil_output("Slot Kosong");
+                        tampil_sukses("Data Diperbarui");
+                    } else tampil_gagal("Slot Kosong");
                 } 
 
                 else if (pil_update == 2) {
@@ -107,11 +108,11 @@ void menu_admin(data_parkir denah[2][20], data_member list[], int &jml_member) {
                         ptr_slot->terisi = false;
                         ptr_slot->plat = "-";
                     }
-                    tampil_output("Status Berhasil Diubah");
+                    tampil_sukses("Status Berhasil Diubah");
                 }
 
                 else if (pil_update !=0 ){
-                    tampil_output("Pilihan tidak tersedia");
+                    tampil_gagal("Pilihan tidak tersedia");
                     getch();
                     break;
                 }
@@ -130,7 +131,7 @@ void menu_admin(data_parkir denah[2][20], data_member list[], int &jml_member) {
             denah[lantai-1][slot_parkir-1].terisi = false;
             denah[lantai-1][slot_parkir-1].plat = "-";
             denah[lantai-1][slot_parkir-1].id_member = -1;
-            tampil_output("Slot Berhasil Dikosongkan");
+            tampil_sukses("Slot Berhasil Dikosongkan");
             kembali();
 
         } else if (pilihan == 5) {
@@ -166,38 +167,37 @@ void menu_admin(data_parkir denah[2][20], data_member list[], int &jml_member) {
                     tabel_sort(list, jml_member, list);
 
                 } else {
-                    cout << "\n >> Pilihan tidak valid";
+                    tampil_gagal("Pilihan tidak valid");
                     getch();
                     continue;
                 } 
                 kembali();
             }
 
-        }else if (pilihan == 6) {
+        } else if (pilihan == 6) {
             int pil_cari;
             while(true) {
                 header_pendek("PENCARIAN DATA MEMBER");
-                cout << "| 1. | Cari Nama                         |" << endl;
-                cout << "| 2. | Cari ID                           |" << endl;
+                cout << "| 1. | Cari Berdasarkan Nama             |" << endl;
+                cout << "| 2. | Cari Berdasarkan ID               |" << endl;
                 cout << "| 0. | Kembali                           |" << endl;
                 cout << "==========================================" << endl;
-                cout << "Pilihan : ";
-                if (!(cin >> pil_cari)) {
-                    ehr_input();
-                    continue;
+                cout << "Pilihan  : ";
+                if (!(cin >> pil_cari)) { 
+                    ehr_input(); 
+                    continue; 
                 }
 
-                if (pil_cari == 0)
-                break;
+                if (pil_cari == 0) break;
 
-                if(pil_cari == 1) {
+                if (pil_cari == 1) {
                     linear_nama(list, jml_member);
 
-                } else if (pil_cari ==2) {
+                } else if (pil_cari == 2) {
                     binary_id(list, jml_member);
 
                 } else {
-                    cout << "\n >> Pilihan tidak valid";
+                    tampil_gagal("Pilihan tidak tersedia");
                     getch();
                     continue;
                 }
@@ -208,7 +208,7 @@ void menu_admin(data_parkir denah[2][20], data_member list[], int &jml_member) {
             break;
 
         } else {
-            tampil_output("Pilihan tidak tersedia");
+            tampil_gagal("Pilihan tidak tersedia");
             getch();
         }
     }
@@ -245,7 +245,7 @@ void menu_member(int id, data_member list[], data_parkir denah[2][20]) {
             denah[lantai-1][slot_parkir-1].booking = true;
             denah[lantai-1][slot_parkir-1].id_member = id;
             tampil_output("Berhasil Booking!", slot_parkir);
-            } else tampil_output("Slot Tidak Tersedia");
+            } else tampil_gagal("Slot Tidak Tersedia");
             kembali();
 
         } else if (pilihan == 2) {
@@ -268,7 +268,7 @@ void menu_member(int id, data_member list[], data_parkir denah[2][20]) {
                     }
                 }
             }
-            if(!ketemu) tampil_output("Tidak ada kendaraan terparkir");
+            if(!ketemu) tampil_gagal("Tidak ada kendaraan terparkir");
             kembali();
 
         } else if (pilihan == 3) {
@@ -283,7 +283,7 @@ void menu_member(int id, data_member list[], data_parkir denah[2][20]) {
             break;
 
         } else {
-            tampil_output("Pilihan tidak tersedia");
+            tampil_gagal("Pilihan tidak tersedia");
             getch();
         }
     }
@@ -348,7 +348,7 @@ int main() {
                             tampil_output("Login Gagal! Sisa Percobaan", 3 - percobaan);
                             getch();
                         } else {
-                            tampil_output("Percobaan Habis, Program Berhenti.");
+                            tampil_gagal("Percobaan Habis, Program Berhenti.");
                             return 0;
                         }
                     }

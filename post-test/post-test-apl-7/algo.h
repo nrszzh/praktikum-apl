@@ -64,7 +64,7 @@ void hitung_biaya(int *saldo_user, int masuk, int keluar, int lantai) {
             throw runtime_error("Saldo anda kurang!");
         }
         *saldo_user -= biaya;
-        tampil_output("Pembayaran Berhasil");
+        tampil_sukses("Pembayaran Berhasil");
     }
     catch (const logic_error& e) {
         cout << "\n \033[31m >>  " << e.what() << "\033[0m" << endl;

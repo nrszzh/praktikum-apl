@@ -8,8 +8,12 @@
 
 using namespace std;
 
-void tampil_output(string output) {
+void tampil_sukses(string output) {
     cout << "\n \033[32m>> " << output << "\033[0m" << endl;
+}
+
+void tampil_gagal(string output) {
+    cout << "\n \033[31m>> " << output << "\033[0m" << endl;
 }
 
 void tampil_output(string output, int nilai) {
