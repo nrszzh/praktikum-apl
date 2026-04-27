@@ -80,15 +80,23 @@ void read_user(data_parkir denah[2][20]) {
         cout << "\n LANTAI " << i + 1 << (i == 0 ? " (MOTOR)" : " (MOBIL)") << endl;
         cout << " ------------------------------------------------" << endl;
         for (int j = 0; j < slot; j++) {
-            string status = (denah[i][j].id_member == -2) ? " [R] " : (denah[i][j].terisi ? " [X] " : (denah[i][j].booking ? " [B] " : " [ ] "));
-            cout << status;
+            if (denah[i][j].id_member == -2) {
+                cout << "\033[33m [R] \033[0m";
+            } else if (denah[i][j].terisi) {
+                cout << "\033[31m [X] \033[0m";
+            } else if (denah[i][j].booking) {
+                cout << "\033[34m [B] \033[0m";
+            } else {
+                cout << "\033[32m [ ] \033[0m";
+            }
+
             if ((j + 1) % 10 == 0) cout << endl;
         }
         cout << " ------------------------------------------------" << endl;
     }   
     cout << " \nKeterangan : " << endl;
-    cout << " [X] : Terisi                   [R] : Repair" << endl;
-    cout << " [B] : Booking                  [ ] : Kosong" << endl;
+    cout << "\033[31m [X] : Terisi\033[0m          \033[33m [R] : Repair\033[0m" << endl;
+    cout << "\033[34m [B] : Booking\033[0m         \033[32m [ ] : Kosong\033[0m" << endl;
     kembali();
 }
 

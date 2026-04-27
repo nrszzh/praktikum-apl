@@ -2,7 +2,6 @@
 #include <string>
 #include <iomanip>
 #include <conio.h>
-#include <cstdlib>
 #include "algo.h"
 using namespace std;
 

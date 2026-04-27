@@ -5,10 +5,11 @@
 #include <string>
 #include <iomanip>
 #include <conio.h>
+
 using namespace std;
 
 void tampil_output(string output) {
-    cout << "\n >> " << output << endl;
+    cout << "\n \033[32m>> " << output << "\033[0m" << endl;
 }
 
 void tampil_output(string output, int nilai) {
@@ -47,9 +48,9 @@ void header_pendek(string judul) {
 void ehr_input() {
     cin.clear(); 
     cin.ignore(1000, '\n');
-    cout << "\n >> Input harus berupa angka (Enter)" << endl;
+    cout << "\n \033[31m>> Input harus berupa angka (Enter)\033[0m" << endl;
     getch();
-} 
+}
 
 
 #endif
